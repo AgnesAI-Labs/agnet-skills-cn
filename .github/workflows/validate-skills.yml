@@ -1,0 +1,358 @@
+name: Validate Skills
+
+on:
+  pull_request:
+    paths:
+      - "**"
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**"
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    # Avoid double-running:
+    # - pull_request runs only for same-repo PRs
+    # - pull_request_target runs only for fork PRs
+    # - push always runs
+    if: |
+      (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository) ||
+      (github.event_name == 'push')
+    runs-on: ubuntu-latest
+
+    steps:
+      # ✅ Trusted checkout (base repo)
+      - name: Checkout base repo (trusted)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ✅ Untrusted checkout (PR head) into ./pr (ONLY for reading files)
+      - name: Checkout PR head into ./pr (untrusted)
+        if: github.event_name == 'pull_request_target'
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+          path: pr
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Determine changed skill directories
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # mcp/ 是插件数据目录（mcp/servers.json），不是技能目录，无需 SKILL.md 校验
+          IGNORE_DIRS_REGEX='^(\.git|\.github|mcp|scripts|node_modules)(/|$)'
+
+          # NOTE: include Renames (R) because changing an extension often shows up as a rename.
+          DIFF_FILTER="AMR"
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+            CHANGED_FILES="$(git diff --name-only --diff-filter=$DIFF_FILTER "$BASE..$HEAD" || true)"
+
+          elif [[ "${{ github.event_name }}" == "pull_request_target" ]]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+            CHANGED_FILES="$(git -C pr diff --name-only --diff-filter=$DIFF_FILTER "$BASE..$HEAD" || true)"
+
+          else
+            BEFORE="${{ github.event.before }}"
+            AFTER="${{ github.event.after }}"
+            CHANGED_FILES="$(git diff --name-only --diff-filter=$DIFF_FILTER "$BEFORE..$AFTER" || true)"
+          fi
+
+          SKILL_DIRS="$(echo "$CHANGED_FILES" \
+            | awk -F/ 'NF>1 {print $1}' \
+            | grep -Ev "$IGNORE_DIRS_REGEX" \
+            | sort -u \
+            | tr '\n' ',' \
+            | sed 's/,$//' \
+            || true
+          )"
+
+          echo "changed_skills=$SKILL_DIRS" >> "$GITHUB_OUTPUT"
+
+          if [[ -z "$SKILL_DIRS" ]]; then
+            echo "No changed skill directories detected."
+          else
+            echo "Changed skill dirs: $SKILL_DIRS"
+          fi
+
+      # Always ensure a report + output file exist so downstream steps are stable.
+      - name: Initialize validation report + output files
+        shell: bash
+        env:
+          SKILLS_VALIDATION_REPORT: ${{ runner.temp }}/skills-validation-report.json
+          SKILLS_VALIDATION_OUTPUT: ${{ runner.temp }}/skills-validation-output.txt
+        run: |
+          set -euo pipefail
+          cat > "$SKILLS_VALIDATION_REPORT" <<'JSON'
+          {
+            "scanned_skills": [],
+            "summary": { "fail_count": 0, "warn_count": 0, "status": "PASSED" },
+            "findings": [],
+            "timestamp": ""
+          }
+          JSON
+          : > "$SKILLS_VALIDATION_OUTPUT"
+
+      - name: Validate changed skills only (same-repo PRs + push)
+        id: validate
+        if: steps.changed.outputs.changed_skills != '' && github.event_name != 'pull_request_target'
+        continue-on-error: true
+        env:
+          SKILLS_VALIDATION_REPORT: ${{ runner.temp }}/skills-validation-report.json
+          SKILLS_VALIDATION_OUTPUT: ${{ runner.temp }}/skills-validation-output.txt
+          CHANGED_SKILLS: ${{ steps.changed.outputs.changed_skills }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+
+          # ✅ Allow only a comma-separated list of safe directory names
+          if [[ ! "$CHANGED_SKILLS" =~ ^[A-Za-z0-9._/-]+(,[A-Za-z0-9._/-]+)*$ ]]; then
+            echo "Invalid CHANGED_SKILLS value: $CHANGED_SKILLS"
+            code=2
+          else
+            node scripts/validate-skills.mjs \
+              --skills "$CHANGED_SKILLS" \
+              --report "$SKILLS_VALIDATION_REPORT" \
+              2>&1 | tee "$SKILLS_VALIDATION_OUTPUT"
+            code="${PIPESTATUS[0]}"
+          fi
+
+          set -e
+
+          EXIT_CODE="$code" node -e "
+            const fs=require('fs');
+            const p=process.env.SKILLS_VALIDATION_REPORT;
+            const code=Number(process.env.EXIT_CODE || 0);
+            const r=JSON.parse(fs.readFileSync(p,'utf8'));
+            r.summary=r.summary||{};
+            if (code!==0){
+              r.summary.status='FAILED';
+              r.summary.fail_count = Math.max(1, Number(r.summary.fail_count||0));
+            } else {
+              r.summary.status='PASSED';
+              r.summary.fail_count = Number(r.summary.fail_count||0);
+            }
+            fs.writeFileSync(p, JSON.stringify(r,null,2));
+          "
+
+          exit 0
+
+      - name: Validate changed skills only (fork PRs via ./pr)
+        id: validate_fork
+        if: steps.changed.outputs.changed_skills != '' && github.event_name == 'pull_request_target'
+        continue-on-error: true
+        env:
+          SKILLS_VALIDATION_REPORT: ${{ runner.temp }}/skills-validation-report.json
+          SKILLS_VALIDATION_OUTPUT: ${{ runner.temp }}/skills-validation-output.txt
+          CHANGED_SKILLS: ${{ steps.changed.outputs.changed_skills }}
+        shell: bash
+        working-directory: pr
+        run: |
+          set -euo pipefail
+          set +e
+
+          # ✅ Strictly validate: comma-separated skill dir names (no spaces, no weird chars)
+          if [[ ! "$CHANGED_SKILLS" =~ ^[A-Za-z0-9._/-]+(,[A-Za-z0-9._/-]+)*$ ]]; then
+            echo "Invalid CHANGED_SKILLS value: $CHANGED_SKILLS"
+            code=2
+          else
+            node scripts/validate-skills.mjs \
+              --skills "$CHANGED_SKILLS" \
+              --report "$SKILLS_VALIDATION_REPORT" \
+              2>&1 | tee "$SKILLS_VALIDATION_OUTPUT"
+            code="${PIPESTATUS[0]}"
+          fi
+
+          set -e
+
+          # Force report summary to match the real result
+          EXIT_CODE="$code" node -e "
+            const fs=require('fs');
+            const p=process.env.SKILLS_VALIDATION_REPORT;
+            const code=Number(process.env.EXIT_CODE || 0);
+            const r=JSON.parse(fs.readFileSync(p,'utf8'));
+            r.summary=r.summary||{};
+            if (code!==0){
+              r.summary.status='FAILED';
+              r.summary.fail_count = Math.max(1, Number(r.summary.fail_count||0));
+            } else {
+              r.summary.status='PASSED';
+              r.summary.fail_count = Number(r.summary.fail_count||0);
+            }
+            fs.writeFileSync(p, JSON.stringify(r,null,2));
+          "
+
+          exit 0
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skills-validation-report
+          path: |
+            ${{ runner.temp }}/skills-validation-report.json
+            ${{ runner.temp }}/skills-validation-output.txt
+          if-no-files-found: error
+          retention-days: 10
+
+      # ✅ Sticky PR comment (create/update) so people don't have to click into Actions
+      - name: Comment validation results on PR (sticky)
+        if: always() && (github.event_name == 'pull_request' || github.event_name == 'pull_request_target')
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: ${{ runner.temp }}/skills-validation-report.json
+          OUTPUT_PATH: ${{ runner.temp }}/skills-validation-output.txt
+          CHANGED_SKILLS: ${{ steps.changed.outputs.changed_skills }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require("fs");
+
+            const marker = "<!-- skills-validate -->";
+            const reportPath = process.env.REPORT_PATH;
+            const outputPath = process.env.OUTPUT_PATH;
+            const changed = process.env.CHANGED_SKILLS || "";
+
+            if (!fs.existsSync(reportPath)) {
+              core.setFailed(`Missing report at ${reportPath}`);
+              return;
+            }
+
+            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+            const warn = report?.summary?.warn_count ?? 0;
+            const fail = report?.summary?.fail_count ?? 0;
+
+            const status =
+              fail > 0 ? "FAILED" :
+              warn > 0 ? "WARN" :
+              "PASSED";
+
+            const icon =
+              status === "FAILED" ? "❌" :
+              status === "WARN" ? "⚠️" :
+              "✅";
+
+            const skillsLine = changed.trim() ? changed : "(none)";
+
+            let output = "";
+            if (fs.existsSync(outputPath)) {
+              const raw = fs.readFileSync(outputPath, "utf8");
+              const lines = raw.split("\n");
+              output = lines.slice(Math.max(0, lines.length - 200)).join("\n").trim();
+            }
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            let body = [
+              marker,
+              `## ${icon} Validate Skills — **${status}**`,
+              ``,
+              `**Summary:** FAIL=${fail} · WARN=${warn}`,
+              `**Changed skill dirs:** ${skillsLine}`,
+              ``,
+            ].join("\n");
+
+            if (output) {
+              body += [
+                `### Output (last 200 lines)`,
+                "```",
+                output,
+                "```",
+                ""
+              ].join("\n");
+            } else {
+              body += `_No output captured._\n`;
+            }
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number, per_page: 100
+            });
+
+            const existing = comments.find(c => (c.body || "").includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+              core.info("Updated existing Validate Skills comment.");
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+              core.info("Created new Validate Skills comment.");
+            }
+
+      # Label ONLY when WARN/FAIL. Also remove it when clean.
+      - name: Update security-review-required label based on report
+        if: always() && (github.event_name == 'pull_request' || github.event_name == 'pull_request_target')
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: ${{ runner.temp }}/skills-validation-report.json
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require("fs");
+            const label = "security-review-required";
+            const reportPath = process.env.REPORT_PATH;
+
+            if (!fs.existsSync(reportPath)) {
+              core.setFailed(`Expected report at ${reportPath} but it was not found.`);
+              return;
+            }
+
+            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+            const warn = report?.summary?.warn_count ?? 0;
+            const fail = report?.summary?.fail_count ?? 0;
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            const shouldHaveLabel = (warn > 0 || fail > 0);
+
+            const { data: existing } = await github.rest.issues.listLabelsOnIssue({
+              owner, repo, issue_number, per_page: 100
+            });
+            const hasLabel = existing.some(l => l.name === label);
+
+            if (shouldHaveLabel && !hasLabel) {
+              core.info(`Applying "${label}" (warn=${warn}, fail=${fail})`);
+              await github.rest.issues.addLabels({ owner, repo, issue_number, labels: [label] });
+            } else if (!shouldHaveLabel && hasLabel) {
+              core.info(`Removing "${label}" (warn=${warn}, fail=${fail})`);
+              await github.rest.issues.removeLabel({ owner, repo, issue_number, name: label });
+            } else {
+              core.info(`No label change needed. hasLabel=${hasLabel} warn=${warn} fail=${fail}`);
+            }
+
+      # ✅ Make the check actually fail if validation failed (branch protection will work)
+      - name: Fail job if validation FAILED
+        if: always()
+        shell: bash
+        env:
+          REPORT_PATH: ${{ runner.temp }}/skills-validation-report.json
+        run: |
+          set -euo pipefail
+          fail_count="$(node -p "require(process.env.REPORT_PATH).summary.fail_count || 0")"
+          warn_count="$(node -p "require(process.env.REPORT_PATH).summary.warn_count || 0")"
+          status="$(node -p "require(process.env.REPORT_PATH).summary.status || 'PASSED'")"
+          echo "Validate Skills report: status=$status fail_count=$fail_count warn_count=$warn_count"
+          if [[ "$fail_count" != "0" ]]; then
+            echo "Blocking merge: validation failed."
+            exit 1
+          fi

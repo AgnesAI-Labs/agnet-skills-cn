@@ -1,0 +1,318 @@
+name: Skills Security Scan
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: skills-scan-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout base repo (trusted)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout PR head into ./pr (untrusted)
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+          path: pr
+          fetch-depth: 0
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Determine changed skills
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+
+          changed_dirs="$(
+            git -C pr diff --name-only "$base" "$head" \
+              | awk -F/ 'NF>1 {print $1}' \
+              | sort -u \
+              | grep -vE '^\.(git|github)$' \
+              | grep -vE '^(scripts|node_modules)$' \
+              | grep -vE '^\.' \
+              || true
+          )"
+
+
+          skills=""
+          for d in $changed_dirs; do
+            if [[ -d "pr/$d" ]]; then
+              if [[ -z "$skills" ]]; then skills="$d"; else skills="$skills,$d"; fi
+            fi
+          done
+
+          # Write back to output (must be done from the main runner context)
+          echo "skills=$skills" >> "$GITHUB_OUTPUT"
+          echo "Changed skills: $skills"
+
+      - name: Initialize security report file
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p scripts
+          cat > scripts/skills-security-report.json <<'JSON'
+          {
+            "status": "PASS",
+            "generatedAt": "",
+            "scanned_skills": [],
+            "totals": { "warnings": 0, "failures": 0, "scannedFiles": 0 },
+            "findings": []
+          }
+          JSON
+          
+      - name: Run security scanner (changed skills only)
+        if: steps.changed.outputs.skills != ''
+        continue-on-error: true
+        shell: bash
+        env:
+          SKILLS: ${{ steps.changed.outputs.skills }}
+        run: |
+          set -euo pipefail
+
+          # Allow only comma-separated "folder-like" names
+          if [[ ! "$SKILLS" =~ ^[A-Za-z0-9._-]+(,[A-Za-z0-9._-]+)*$ ]]; then
+            echo "Invalid skills list: $SKILLS"
+            exit 1
+          fi
+
+          node scripts/skills-security-scan.mjs \
+            --repo-root pr \
+            --skills "$SKILLS" \
+            --report scripts/skills-security-report.json \
+            --sarif  scripts/skills-security-report.sarif
+
+      
+      - name: Check SARIF exists and is non-empty
+        if: always() && steps.changed.outputs.skills != ''
+        id: sarifcheck
+        shell: bash
+        run: |
+          if [[ -s scripts/skills-security-report.sarif ]]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+     
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always() && steps.changed.outputs.skills != '' && steps.sarifcheck.outputs.ok == 'true'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: scripts/skills-security-report.sarif
+          category: skills-security-scan
+          # Tie results to the PR commit so annotations show in "Files changed"
+          sha: ${{ github.event.pull_request.head.sha }}
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+    
+
+      - name: Comment security scan results on PR (sticky)
+        if: always() && github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: scripts/skills-security-report.json
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require("fs");
+
+            const marker = "<!-- skills-security-scan -->";
+            const reportPath = process.env.REPORT_PATH;
+
+            if (!fs.existsSync(reportPath)) {
+              core.setFailed(`Missing report at ${reportPath}`);
+              return;
+            }
+
+            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            const status = report.status || "PASS";
+            const fails = report.totals?.failures ?? 0;
+            const warns = report.totals?.warnings ?? 0;
+            const filesCount = report.totals?.scannedFiles ?? 0;
+            const scanned = (report.scanned_skills || []).join(", ") || "(none)";
+
+            const ruleHelp = {
+              "remote-exec:curl-pipe-shell":
+                "Blocks download-and-execute. Vendor scripts or verify pinned downloads + checksums.",
+              "remote-exec:process-substitution":
+                "Blocks bash/sh reading remote content via process substitution.",
+              "remote-exec:cmd-subst":
+                "Blocks executing downloaded content via command substitution.",
+              "remote-exec:curl-to-file-then-shell":
+                "Blocks download-to-disk then execute (common evasion).",
+              "prompt-injection:ignore-instructions":
+                "Review: instruction-bypass language. Ensure skill cannot override safety/system rules.",
+              "prompt-injection:system-dev":
+                "Review: attempts to override system/developer instructions.",
+              "prompt-injection:jailbreak":
+                "Review: jailbreak/system prompt language.",
+              "prompt-injection:donotdisclose":
+                "Review: concealment language can indicate malicious intent.",
+              "prompt-injection:secrets-escalation":
+                "Blocks prompt-injection language combined with secret-target keywords.",
+              "network:curl-wget":
+                "Review: network tool usage; ensure it's necessary and safe.",
+              "network:url":
+                "Review: URL present; confirm expected destination and purpose.",
+              "package-json:lifecycle-scripts-present":
+                "Review: npm lifecycle scripts can run on install/build; confirm safe behavior.",
+              "package-json:lifecycle-remote-exec":
+                "Blocks remote-exec found inside lifecycle scripts.",
+              "scan:unreadable-text":
+                "Review: file not readable as UTF-8; could be binary/encoded payload."
+            };
+
+            function groupFindings(findings) {
+              const bySkill = new Map();
+              for (const f of findings) {
+                const skill = f.skill || "(unknown)";
+                if (!bySkill.has(skill)) bySkill.set(skill, []);
+                bySkill.get(skill).push(f);
+              }
+              return bySkill;
+            }
+
+            function renderFinding(f) {
+              const loc = f.line ? `${f.file}:${f.line}` : f.file;
+              const snippet = f.snippet ? `\n\`\`\`\n${f.snippet}\n\`\`\`\n` : "\n";
+              const help = ruleHelp[f.ruleId] ? `\n**Guidance:** ${ruleHelp[f.ruleId]}\n` : "";
+              return `- **${f.ruleId}** — \`${loc}\`${snippet}${help}`;
+            }
+
+            const all = Array.isArray(report.findings) ? report.findings : [];
+            const failures = all.filter(f => f.severity === "FAIL");
+            const warnings = all.filter(f => f.severity === "WARN");
+
+            const headerLines = [
+              marker,
+              `## 🛡️ Skills Security Scan — **${status}**`,
+              `**Summary:** FAIL=${fails} · WARN=${warns} · FILES=${filesCount}  `,
+              `**Changed skills scanned:** ${scanned}`,
+              "",
+              status === "FAIL"
+                ? "❌ **FAIL blocks merge.** Fix the items below."
+                : status === "WARN"
+                ? "⚠️ **WARN requires investigation + CODEOWNERS review.**"
+                : "✅ No issues detected.",
+              ""
+            ];
+
+            let body = headerLines.join("\n");
+
+            if (failures.length) {
+              body += "\n### ❌ Failures\n";
+              const grouped = groupFindings(failures);
+              for (const [skill, items] of grouped.entries()) {
+                body += `\n**${skill}**\n`;
+                for (const f of items) body += `${renderFinding(f)}\n`;
+              }
+            }
+
+            if (warnings.length) {
+              body += "\n### ⚠️ Warnings\n";
+              const grouped = groupFindings(warnings);
+              for (const [skill, items] of grouped.entries()) {
+                body += `\n**${skill}**\n`;
+                for (const f of items) body += `${renderFinding(f)}\n`;
+              }
+            }
+
+            body += "\n---\n**Notes:** This comment auto-updates on each push to keep PRs clean.\n";
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number, per_page: 100
+            });
+
+            const existing = comments.find(c => (c.body || "").includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+              core.info("Updated existing sticky security scan comment.");
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+              core.info("Created new sticky security scan comment.");
+            }
+
+      - name: Upload security report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skills-security-report
+          path: scripts/skills-security-report.json
+          if-no-files-found: error
+
+      - name: Update security-review-required label based on report
+        if: always() && github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: scripts/skills-security-report.json
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require("fs");
+            const label = "security-review-required";
+            const reportPath = process.env.REPORT_PATH;
+
+            if (!fs.existsSync(reportPath)) {
+              core.setFailed(`Expected report at ${reportPath} but it was not found.`);
+              return;
+            }
+
+            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+            const status = report?.status ?? "PASS";
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            const shouldHaveLabel = (status === "WARN" || status === "FAIL");
+
+            const { data: existing } = await github.rest.issues.listLabelsOnIssue({
+              owner, repo, issue_number, per_page: 100
+            });
+            const hasLabel = existing.some(l => l.name === label);
+
+            if (shouldHaveLabel && !hasLabel) {
+              await github.rest.issues.addLabels({ owner, repo, issue_number, labels: [label] });
+            } else if (!shouldHaveLabel && hasLabel) {
+              await github.rest.issues.removeLabel({ owner, repo, issue_number, name: label });
+            }
+
+      - name: Fail job if security scan FAIL
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          status="$(node -p "require('./scripts/skills-security-report.json').status")"
+          echo "Security scan status: $status"
+          if [[ "$status" == "FAIL" ]]; then
+            echo "Blocking merge: security scan failed."
+            exit 1
+          fi
