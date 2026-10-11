@@ -1,15 +1,32 @@
 ---
 name: beads
-description: Use beads (bd) for persistent task tracking in coding projects. A git-backed issue tracker designed for AI agents with dependency graphs, hierarchical tasks, and multi-agent coordination.
+description: >-
+  Use beads (bd) for persistent task tracking in coding projects. A git-backed
+  issue tracker designed for AI agents with dependency graphs, hierarchical
+  tasks, and multi-agent coordination.
 description_zh: 在编码项目中使用 beads（bd）进行持久化任务跟踪。这是一个面向 AI 代理、基于 git 的问题追踪器，支持依赖图、分层任务与多代理协作。
+category: productivity
+category_name: Work & Collaboration
+category_name_zh: 办公与协作
+examples_zh:
+  - 用 beads 记录这个项目的任务依赖
+  - 帮我把这些待办建成任务图
+  - 看看当前有哪些任务还没完成
+examples:
+  - Track this project's tasks with beads
+  - Build a dependency graph from these todos
+  - Show me what tasks are still open
 author: agnes
-version: "1.0"
+version: '1.0'
 tags:
   - development
   - productivity
   - task-management
   - workflow
-installation_notes: This skill installs directly from the Skills Marketplace in Agnes Code Desktop. It requires the beads CLI (bd) to be installed separately (e.g. npm install -g @beads/bd).
+installation_notes: >-
+  This skill installs directly from the Skills Marketplace in Agnes Code
+  Desktop. It requires the beads CLI (bd) to be installed separately (e.g. npm
+  install -g @beads/bd).
 installation_notes_zh: 该技能从 Agnes Code 桌面端技能市场直接安装。需要单独安装 beads 命令行工具（如 npm install -g @beads/bd）。
 ---
 

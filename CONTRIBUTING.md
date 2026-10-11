@@ -72,6 +72,9 @@ name: api-setup
 description: Set up API integration with configuration and helper scripts
 author: agnes
 version: "1.0"
+category: development
+category_name: Development
+category_name_zh: 开发与代码
 tags:
 - api
 - integration
@@ -87,6 +90,8 @@ Guidelines:
 * `author` Creator of the skill (GitHub handle, name, or org)
 * `version` Must be a string (quote it), start at "1.0" and increment when you make updates
 * `tags` A list of keywords to help discovery in the marketplace, Use lowercase, short words or phrases
+* `category` is a stable lowercase ID with optional hyphens, such as `development` or `design-tools`
+* `category_name` and `category_name_zh` are required English and Chinese display names; every skill and plugin using the same category ID must use identical names
 
 ---
 

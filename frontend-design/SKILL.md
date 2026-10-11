@@ -1,16 +1,35 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.
-description_zh: 创建差异化、生产级的前端界面并保持高设计质量。当用户要求构建 Web 组件、页面或应用时使用此技能。生成富有创意、精雕细琢的代码，避免千篇一律的 AI 美学。
+description: >-
+  Create distinctive, production-grade frontend interfaces with high design
+  quality. Use this skill when the user asks to build web components, pages, or
+  applications. Generates creative, polished code that avoids generic AI
+  aesthetics.
+description_zh: >-
+  创建差异化、生产级的前端界面并保持高设计质量。当用户要求构建 Web 组件、页面或应用时使用此技能。生成富有创意、精雕细琢的代码，避免千篇一律的 AI
+  美学。
+category: creative
+category_name: Design & Media
+category_name_zh: 设计与创意
+examples_zh:
+  - 帮我设计一个登录页
+  - 这个页面的视觉不太行，重新设计一下
+  - 按我们的风格做一套界面
+examples:
+  - Design a login page
+  - Redesign this page's visuals
+  - Create a UI matching our style
 author: agnes
-version: "1.0"
+version: '1.0'
 tags:
   - development
   - frontend
   - design
   - ui
   - css
-installation_notes: This skill installs directly from the Skills Marketplace in Agnes Code Desktop with no additional dependencies.
+installation_notes: >-
+  This skill installs directly from the Skills Marketplace in Agnes Code Desktop
+  with no additional dependencies.
 installation_notes_zh: 该技能从 Agnes Code 桌面端技能市场直接安装，无额外依赖。
 ---
 

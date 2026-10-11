@@ -2,13 +2,26 @@
 name: api-setup
 description: Set up API integration with configuration and helper scripts
 description_zh: 使用配置与辅助脚本建立新的 API 集成
+category: development
+category_name: Development
+category_name_zh: 开发与代码
+examples_zh:
+  - 帮我接入这个 API，包括配置和调用示例
+  - 为新的第三方服务建立 API 集成
+  - 按规范补一份 API 接入说明
+examples:
+  - Set up this API with config and usage examples
+  - Create an integration for a new third-party service
+  - Write API setup docs following our conventions
 author: agnes
-version: "1.0"
+version: '1.0'
 tags:
   - api
   - integration
   - setup
-installation_notes: This skill installs with supporting setup scripts and configuration templates from the Skills Marketplace in Agnes Code Desktop.
+installation_notes: >-
+  This skill installs with supporting setup scripts and configuration templates
+  from the Skills Marketplace in Agnes Code Desktop.
 installation_notes_zh: 该技能从 Agnes Code 桌面端技能市场安装，包含配套的配置脚本与配置模板。
 ---
 

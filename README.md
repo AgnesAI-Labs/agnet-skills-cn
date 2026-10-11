@@ -119,3 +119,5 @@ If you’re unsure, feel free to open a draft PR or start a discussion.
 `mcp/servers.json` is the single source of truth for the MCP plugin catalog consumed by the Agnes Code desktop app's plugins marketplace (and mirrored to the docs site as `static/servers.json` by the docs site build).
 
 To add, update, or remove a plugin entry, edit `mcp/servers.json` directly. Keep entries complete for both locales — every entry should carry both `description` / `description_zh` (and `installation_notes` / `installation_notes_zh` where applicable) so the marketplace renders correctly in English and Chinese. Entry shape must stay compatible with the desktop app's plugin schema (`name`, `description`, `command`, `env`, `supportedPlatforms`, etc.); when adding new fields, update the desktop app first and keep this file in sync.
+
+Each plugin also needs `category` (a lowercase ID), `category_name` (English), and `category_name_zh` (Chinese). Use the same names for a category ID across all skills and plugins; the documentation build rejects missing fields and conflicting names.
