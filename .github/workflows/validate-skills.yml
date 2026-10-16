@@ -62,17 +62,17 @@ jobs:
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             BASE="${{ github.event.pull_request.base.sha }}"
             HEAD="${{ github.event.pull_request.head.sha }}"
-            CHANGED_FILES="$(git diff --name-only --diff-filter=$DIFF_FILTER "$BASE..$HEAD" || true)"
+            CHANGED_FILES="$(git -c core.quotePath=false diff --name-only --diff-filter=$DIFF_FILTER "$BASE..$HEAD" || true)"
 
           elif [[ "${{ github.event_name }}" == "pull_request_target" ]]; then
             BASE="${{ github.event.pull_request.base.sha }}"
             HEAD="${{ github.event.pull_request.head.sha }}"
-            CHANGED_FILES="$(git -C pr diff --name-only --diff-filter=$DIFF_FILTER "$BASE..$HEAD" || true)"
+            CHANGED_FILES="$(git -C pr -c core.quotePath=false diff --name-only --diff-filter=$DIFF_FILTER "$BASE..$HEAD" || true)"
 
           else
             BEFORE="${{ github.event.before }}"
             AFTER="${{ github.event.after }}"
-            CHANGED_FILES="$(git diff --name-only --diff-filter=$DIFF_FILTER "$BEFORE..$AFTER" || true)"
+            CHANGED_FILES="$(git -c core.quotePath=false diff --name-only --diff-filter=$DIFF_FILTER "$BEFORE..$AFTER" || true)"
           fi
 
           SKILL_DIRS="$(echo "$CHANGED_FILES" \
