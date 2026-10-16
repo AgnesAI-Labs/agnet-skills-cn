@@ -1,10 +1,12 @@
 ---
 name: beads
+name_zh: AI开发任务管理
 description: >-
   Use beads (bd) for persistent task tracking in coding projects. A git-backed
   issue tracker designed for AI agents with dependency graphs, hierarchical
   tasks, and multi-agent coordination.
-description_zh: 在编码项目中使用 beads（bd）进行持久化任务跟踪。这是一个面向 AI 代理、基于 git 的问题追踪器，支持依赖图、分层任务与多代理协作。
+description_zh: >-
+  开发项目任务多、依赖复杂？帮你持续记录和追踪开发任务，支持任务分层、依赖关系管理和多 AI Agent 协作。基于 Git 管理任务记录，让需求、问题和开发进度更有条理，减少复杂项目中任务遗漏和上下文丢失的情况。
 category: productivity
 category_name: Work & Collaboration
 category_name_zh: 办公与协作

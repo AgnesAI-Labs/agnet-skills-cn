@@ -1,7 +1,9 @@
 ---
 name: code-review
+name_zh: AI代码审查助手
 description: Comprehensive code review checklist for pull requests
-description_zh: 面向 pull request 的全面代码审查清单
+description_zh: >-
+  代码提交前，帮你把好质量关！针对 Pull Request 中的代码变更进行系统性审查，依据审查清单检查潜在错误、逻辑问题与需要改进的实现细节，梳理问题与优化建议，让代码评审更全面、更高效。
 category: development
 category_name: Development
 category_name_zh: 开发与代码

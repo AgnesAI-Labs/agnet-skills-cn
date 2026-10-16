@@ -1,7 +1,9 @@
 ---
 name: api-setup
+name_zh: API集成配置助手
 description: Set up API integration with configuration and helper scripts
-description_zh: 使用配置与辅助脚本建立新的 API 集成
+description_zh: >-
+  让 API 接入更简单！通过配置文件和辅助脚本，帮助你完成新 API 的集成配置，梳理接口接入所需的参数与操作步骤，减少重复配置工作，让第三方服务更方便地接入现有项目。
 category: development
 category_name: Development
 category_name_zh: 开发与代码

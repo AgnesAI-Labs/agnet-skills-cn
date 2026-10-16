@@ -1,13 +1,13 @@
 ---
 name: frontend-design
+name_zh: AI前端设计与开发
 description: >-
   Create distinctive, production-grade frontend interfaces with high design
   quality. Use this skill when the user asks to build web components, pages, or
   applications. Generates creative, polished code that avoids generic AI
   aesthetics.
 description_zh: >-
-  创建差异化、生产级的前端界面并保持高设计质量。当用户要求构建 Web 组件、页面或应用时使用此技能。生成富有创意、精雕细琢的代码，避免千篇一律的 AI
-  美学。
+  从创意想法到精美网页，快速打造高质量前端界面！根据需求设计并生成 Web 页面、交互组件或应用界面代码，兼顾视觉风格、页面布局、交互体验与实际落地效果。适合网站搭建、产品原型、后台系统及各类 Web 应用开发，让页面告别千篇一律的设计。
 category: creative
 category_name: Design & Media
 category_name_zh: 设计与创意

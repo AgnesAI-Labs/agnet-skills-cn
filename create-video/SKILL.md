@@ -1,5 +1,6 @@
 ---
 name: create-video
+name_zh: AI多镜头视频制作
 description: >-
   Plan, generate, assemble, inspect, and revise videos from text, images,
   generated clips, audio, subtitles, or user-supplied media. Use for multi-shot
@@ -9,7 +10,7 @@ description: >-
   subtitle burn-in, or any request that needs more than one isolated generation
   call.
 description_zh: >-
-  从文本、图片、生成片段、音频、字幕或用户提供的媒体规划、生成、组装、检查和修订视频。适用于多镜头或长视频、短剧、讲解视频、广告、蒙太奇、旁白视频、跨片段连续性、关键帧或分镜规划、无需常规确认的端到端制作、本地剪辑、配音、字幕烧录，以及任何不止一次独立生成调用的视频需求。
+  从创意到成片，轻松完成 AI 视频创作！支持文字、图片、音频、已有视频片段等多种素材，可进行视频脚本与分镜规划、关键帧设计、多镜头画面生成、片段拼接、配音字幕及成片修订，并帮助保持跨镜头内容的连贯性。适用于 AI 短剧、广告宣传、知识讲解、产品展示及长视频制作。
 category: creative
 category_name: Design & Media
 category_name_zh: 设计与创意
