@@ -439,23 +439,6 @@
     "installation_notes_zh": "必须保持 Figma 桌面应用运行并启用 MCP 服务端。"
   },
   {
-    "id": "glif",
-    "name": "Glif",
-    "description": "Generate images, video, and audio with Glif's media-generation agent",
-    "url": "https://glif.app/api/mcp",
-    "link": "https://glif.app/mcp",
-    "installation_notes": "Hosted remote server. Sign in with your Glif account via OAuth on first connect.",
-    "is_builtin": false,
-    "endorsed": false,
-    "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
-    "environmentVariables": [],
-    "type": "streamable-http",
-    "description_zh": "使用 Glif 的媒体生成智能体生成图像、视频与音频",
-    "installation_notes_zh": "托管远程服务端。首次连接时通过 OAuth 使用 Glif 账号登录。"
-  },
-  {
     "id": "github-mcp",
     "name": "GitHub",
     "description": "GitHub repository management and operations",
