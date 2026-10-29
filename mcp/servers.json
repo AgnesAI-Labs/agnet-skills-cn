@@ -246,6 +246,7 @@
     "category": "development",
     "category_name": "Development",
     "category_name_zh": "开发与代码",
+    "sort": 1,
     "environmentVariables": [],
     "description_zh": "获取最新代码与文档",
     "installation_notes_zh": "使用 npx 包管理器安装。"
@@ -450,6 +451,7 @@
     "category": "development",
     "category_name": "Development",
     "category_name_zh": "开发与代码",
+    "sort": 1,
     "environmentVariables": [],
     "headers": [
       {
@@ -790,6 +792,7 @@
     "category": "development",
     "category_name": "Development",
     "category_name_zh": "开发与代码",
+    "sort": 2,
     "environmentVariables": [],
     "description_zh": "使用 Playwright 通过结构化无障碍快照与网页交互",
     "installation_notes_zh": "使用 npx 包管理器安装。"

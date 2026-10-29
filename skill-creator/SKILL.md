@@ -10,6 +10,7 @@ description_zh: 编写新 Agent Skill 的规范与方法
 category: development
 category_name: Development
 category_name_zh: 开发与代码
+sort: 2
 examples_zh:
   - 帮我写一个新的技能
   - 把这个流程做成一个 skill

@@ -7,6 +7,7 @@ description_zh: >-
 category: development
 category_name: Development
 category_name_zh: 开发与代码
+sort: 1
 examples_zh:
   - 帮我规划这个功能的测试策略
   - 这些改动该测哪些场景

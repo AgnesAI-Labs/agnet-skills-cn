@@ -7,6 +7,7 @@ description_zh: >-
 category: development
 category_name: Development
 category_name_zh: 开发与代码
+sort: 1
 examples_zh:
   - 审查一下这个 PR 的改动
   - 帮我看看这段代码有没有问题
