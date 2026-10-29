@@ -1,0 +1,12 @@
+{
+  "id": "deep-research",
+  "name": "Deep Research",
+  "name_zh": "深度调研",
+  "description": "Study a topic properly: search multiple angles through the Exa connector, keep watching the news around it, and write the findings up as a linked Notion page instead of a chat log.",
+  "description_zh": "把一个题目真正查透：通过 Exa 连接器从多个角度检索，持续跟进相关新闻，最后把结论写成带链接的 Notion 文档，而不是散在对话里。",
+  "version": "1.0.0",
+  "category": "research",
+  "tags": ["research", "news", "notion"],
+  "skills": ["deep-research", "news-monitor", "notion-research-documentation"],
+  "connectors": ["exa"]
+}

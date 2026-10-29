@@ -1,0 +1,12 @@
+{
+  "id": "product-research",
+  "name": "Product Research",
+  "name_zh": "产品调研",
+  "description": "Research a market before writing anything: compare competitors on features, pricing and positioning, profile the companies involved, assemble the findings into a data-backed report, and turn the result into a proposal.",
+  "description_zh": "先摸清市场再动笔：对比竞品的功能、定价和定位，了解相关公司背景，把结论整理成有数据支撑的报告，最后写成方案。",
+  "version": "1.0.0",
+  "category": "research",
+  "tags": ["research", "competitive-analysis", "reporting", "proposal"],
+  "skills": ["competitive-analysis", "company-research", "data-report", "proposal-writer"],
+  "connectors": []
+}

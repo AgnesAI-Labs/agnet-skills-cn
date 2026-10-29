@@ -1,0 +1,12 @@
+{
+  "id": "dev-delivery",
+  "name": "Dev Delivery",
+  "name_zh": "研发交付",
+  "description": "Carry a code change from review to shipped: check the diff, decide what to test, find the root cause when something breaks, land it in small increments, then simplify what was left behind. Ships with GitHub and Chrome DevTools connectors.",
+  "description_zh": "把一处代码改动从评审做到上线：先看改动、定测试范围，出问题时定位根因，再小步提交，最后把留下的冗余理顺。带 GitHub 与 Chrome DevTools 两个连接器。",
+  "version": "1.0.0",
+  "category": "development",
+  "tags": ["development", "code-review", "testing", "debugging"],
+  "skills": ["code-review", "testing-strategy", "debugging-and-error-recovery", "incremental-implementation", "code-simplification"],
+  "connectors": ["github-mcp", "chrome-devtools-mcp"]
+}

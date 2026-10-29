@@ -1,0 +1,12 @@
+{
+  "id": "content-studio",
+  "name": "Content Studio",
+  "name_zh": "内容创作",
+  "description": "Turn an article draft into publishable content: convert Markdown to styled HTML, illustrate the body text, design a cover, and lay out infographics, with image generation available through the Nano Banana connector.",
+  "description_zh": "把一篇稿子做成能直接发布的成品：Markdown 转排版好的 HTML，配正文插图、封面和信息图，需要出图时通过 Nano Banana 连接器生成。",
+  "version": "1.0.0",
+  "category": "content",
+  "tags": ["content", "writing", "illustration", "publishing"],
+  "skills": ["baoyu-markdown-to-html", "baoyu-article-illustrator", "baoyu-cover-image", "baoyu-infographic"],
+  "connectors": ["nano-banana-mcp"]
+}

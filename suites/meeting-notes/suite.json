@@ -1,0 +1,12 @@
+{
+  "id": "meeting-notes",
+  "name": "Meeting Notes",
+  "name_zh": "会议与归档",
+  "description": "Go from a recording or a pile of Office files to a durable record: transcribe the meeting, take structured notes, convert the source documents to Markdown, and file the outcome in Notion.",
+  "description_zh": "把一场会或一堆 Office 文件变成能查的记录：先转录，再整理成有条理的纪要，把原始文档转成 Markdown，最后归到 Notion 里。",
+  "version": "1.0.0",
+  "category": "productivity",
+  "tags": ["meetings", "transcription", "documents", "knowledge-base"],
+  "skills": ["meeting-notes", "transcription-automation", "office-to-md", "notion-knowledge-capture"],
+  "connectors": []
+}

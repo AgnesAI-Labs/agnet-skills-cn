@@ -1,0 +1,12 @@
+{
+  "id": "design-to-code",
+  "name": "Design to Code",
+  "name_zh": "设计稿转代码",
+  "description": "Turn Figma designs and product requirements into production-ready frontend interfaces, then document the result with editorial-quality architecture and flow diagrams.",
+  "description_zh": "把 Figma 设计稿和产品需求做成可直接上线的前端界面，并用编辑级图表补上架构与流程说明。",
+  "version": "1.0.0",
+  "category": "design",
+  "tags": ["frontend", "figma", "ui", "diagram"],
+  "skills": ["frontend-design", "diagram-design"],
+  "connectors": ["figma"]
+}

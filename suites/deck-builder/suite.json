@@ -1,0 +1,12 @@
+{
+  "id": "deck-builder",
+  "name": "Deck Builder",
+  "name_zh": "演示文稿",
+  "description": "Build a presentation from an article or outline: generate the deck, render it as HTML slides, apply one consistent theme, and clean up the source Markdown first so every slide carries the same structure.",
+  "description_zh": "拿一篇文章或提纲做出整套幻灯片：先生成内容，再渲染成浏览器里能翻页的 HTML，套上统一的主题，原稿的 Markdown 也顺手规整一遍。",
+  "version": "1.0.0",
+  "category": "productivity",
+  "tags": ["slides", "presentation", "html"],
+  "skills": ["baoyu-slide-deck", "html-slides", "theme-factory", "baoyu-format-markdown"],
+  "connectors": []
+}

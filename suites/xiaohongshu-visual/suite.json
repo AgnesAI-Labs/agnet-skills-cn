@@ -1,0 +1,12 @@
+{
+  "id": "xiaohongshu-visual",
+  "name": "Xiaohongshu Visual Kit",
+  "name_zh": "小红书图文",
+  "description": "Plan a Xiaohongshu post end to end: lay out the image set, write on-image and caption copy for the product or topic, then tighten the wording so it reads like a person wrote it.",
+  "description_zh": "从图片规划到文案一起做小红书笔记：排好配图顺序，写好图上文字和正文，再把措辞收紧，读起来像人写的而不是模板腔。",
+  "version": "1.0.0",
+  "category": "content",
+  "tags": ["xiaohongshu", "social", "copywriting"],
+  "skills": ["baoyu-xhs-images", "ecommerce-visual-copywriting", "copy-editing"],
+  "connectors": []
+}
