@@ -54,7 +54,7 @@ jobs:
           set -euo pipefail
 
           # mcp/ 是插件数据目录（mcp/servers.json），不是技能目录，无需 SKILL.md 校验
-          IGNORE_DIRS_REGEX='^(\.git|\.github|mcp|scripts|node_modules)(/|$)'
+          IGNORE_DIRS_REGEX='^(\.git|\.github|mcp|scripts|node_modules|suites)(/|$)'
 
           # NOTE: include Renames (R) because changing an extension often shows up as a rename.
           DIFF_FILTER="AMR"

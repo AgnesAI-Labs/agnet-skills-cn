@@ -90,6 +90,9 @@ const ALLOW_EXTENSIONS = new Set([
   ".sh",
   ".bash",
   ".zsh",
+  // PowerShell 是文本脚本，文档站清单构建已把它算作可执行脚本；
+  // 白名单缺这一项会让带 Windows 等价脚本的技能无法入库。
+  ".ps1",
   ".sql",
 ]);
 
@@ -204,7 +207,7 @@ function readFileSample(absPath, sizeBytes) {
 
 // mcp 是插件数据目录（mcp/servers.json），不是技能目录；
 // 与 .github/workflows/validate-skills.yml 里 changed-dirs 的忽略规则保持一致
-const IGNORE_DIRS_AT_ROOT = new Set([".git", ".github", "scripts", "node_modules", "mcp"]);
+const IGNORE_DIRS_AT_ROOT = new Set([".git", ".github", "scripts", "node_modules", "mcp", "suites", "dist"]);
 
 // 当前正在校验的技能目录，由主循环设置，用于把结论归到 findings 的 skill 字段
 let currentSkill = null;

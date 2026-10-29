@@ -173,6 +173,8 @@ jobs:
                 "Review: attempts to override system/developer instructions.",
               "prompt-injection:jailbreak":
                 "Review: jailbreak/system prompt language.",
+              "prompt-injection:override-language":
+                "Review: override / system prompt wording. Common in technical prose; confirm the file does not ask an agent to bypass its instructions.",
               "prompt-injection:donotdisclose":
                 "Review: concealment language can indicate malicious intent.",
               "prompt-injection:secrets-escalation":

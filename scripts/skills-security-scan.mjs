@@ -29,7 +29,7 @@ const { skills: skillsArg, report: reportArg, sarif: sarifArg, repoRoot: repoRoo
 const REPO_ROOT = repoRootArg ? path.resolve(repoRootArg) : process.cwd();
 const SKILLS_ROOT = REPO_ROOT;
 
-const IGNORE_DIRS_AT_ROOT = new Set([".git", ".github", "scripts", "node_modules"]);
+const IGNORE_DIRS_AT_ROOT = new Set([".git", ".github", "scripts", "node_modules", "suites", "dist"]);
 
 const REPORT_PATH =
   process.env.SKILLS_SECURITY_REPORT || path.join(REPO_ROOT, "scripts", "skills-security-report.json");
@@ -133,19 +133,32 @@ const WARN_PATTERNS = [
   { id: "network:curl-wget", re: /\b(curl|wget)\b/i },
   { id: "network:url", re: /\bhttps?:\/\/[^\s"'`<>]+/i },
 
+  // escalates 标记的语式才参与 FAIL 升级：这些是命令式措辞，正常技术文档里不会出现
   {
     id: "prompt-injection:ignore-instructions",
     re: /\b(ignore|disregard|bypass)\b[^\n\r]{0,120}\b(previous|prior|earlier)\b[^\n\r]{0,120}\b(instructions|messages|rules)\b/i,
+    escalates: true,
   },
   {
     id: "prompt-injection:system-dev",
     re: /\b(ignore|disregard)\b[^\n\r]{0,120}\b(system|developer)\b[^\n\r]{0,120}\b(prompt|message|instructions)\b/i,
+    escalates: true,
   },
-  { id: "prompt-injection:jailbreak", re: /\b(jailbreak|override|prompt leak|system prompt)\b/i },
-  { id: "prompt-injection:donotdisclose", re: /\bdo not\b[^\n\r]{0,120}\b(tell|mention|reveal|disclose)\b/i },
+  { id: "prompt-injection:jailbreak", re: /\b(jailbreak|prompt leak)\b/i, escalates: true },
+  // override 与 system prompt 在工程文档里太常见（「不要覆盖用户的决定」「从 system prompt 读模型 ID」），
+  // 保留为 WARN 供人工复核，但不参与升级，否则任何讨论安全或上下文的技能都会被判成载荷
+  {
+    id: "prompt-injection:override-language",
+    re: /\b(override|system prompt)\b/i,
+  },
+  {
+    id: "prompt-injection:donotdisclose",
+    re: /\bdo not\b[^\n\r]{0,120}\b(tell|mention|reveal|disclose)\b/i,
+    escalates: true,
+  },
 ];
 
-// If prompt-injection is present AND these appear, escalate to FAIL
+// If prompt-injection is present AND these appear on the same line, escalate to FAIL
 const SENSITIVE_TARGETS = [
   /\b(api[_-]?key|access[_-]?token|secret|password|credentials?)\b/i,
   /\b(\.env|environment variable|env var)\b/i,
@@ -359,6 +372,8 @@ function normalizeFindings(findings) {
     "prompt-injection:ignore-instructions",
     "prompt-injection:jailbreak",
     "prompt-injection:donotdisclose",
+    // 噪音最大，同一行有别的注入语式时优先展示别的
+    "prompt-injection:override-language",
   ];
 
   function piScore(ruleId) {
@@ -791,10 +806,13 @@ function main() {
       // ------------------------------
       // WARN patterns
       // ------------------------------
-      let injectionWarnHit = false;
+      // 参与升级的注入语式命中的行号
+      const escalationLines = new Set();
       for (const p of WARN_PATTERNS) {
         const hits = findAllMatchesWithContext(capped, p.re);
-        if (hits.length > 0 && p.id.startsWith("prompt-injection:")) injectionWarnHit = true;
+        if (p.escalates) {
+          for (const h of hits) escalationLines.add(h.line);
+        }
 
         for (const h of hits) {
           report.findings.push({
@@ -809,24 +827,22 @@ function main() {
         }
       }
 
-      // Escalate if prompt-injection + sensitive targets
-      if (injectionWarnHit) {
-        for (const re of SENSITIVE_TARGETS) {
-          if (re.test(capped)) {
-            const sensitiveHits = findAllMatchesWithContext(capped, re);
-            const h = sensitiveHits[0];
+      // 注入语式与敏感目标必须落在同一行才算载荷。整文件共现会把「文档里分别提到
+      // override 和 secret」的正常技术文本判成 FAIL，实测仓库内 17 条 FAIL 全属这种跨行误报。
+      for (const re of SENSITIVE_TARGETS) {
+        const h = findAllMatchesWithContext(capped, re).find((x) => escalationLines.has(x.line));
+        if (!h) continue;
 
-            report.findings.push({
-              severity: "FAIL",
-              skill: skillName,
-              file: rel,
-              ruleId: "prompt-injection:secrets-escalation",
-              message: "Prompt-injection language combined with sensitive target keywords",
-              ...(h ? { line: h.line, snippet: h.snippet } : {}),
-            });
-            break;
-          }
-        }
+        report.findings.push({
+          severity: "FAIL",
+          skill: skillName,
+          file: rel,
+          ruleId: "prompt-injection:secrets-escalation",
+          message: "Prompt-injection language combined with sensitive target keywords on the same line",
+          line: h.line,
+          snippet: h.snippet,
+        });
+        break;
       }
     }
   }
@@ -848,7 +864,6 @@ function main() {
     `📊 Status: ${report.status} | FAIL=${report.totals.failures} WARN=${report.totals.warnings} FILES=${report.totals.scannedFiles}`
   );
 
- sks
 }
 
 main();
