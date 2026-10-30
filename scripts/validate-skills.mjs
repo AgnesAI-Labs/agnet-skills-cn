@@ -343,6 +343,31 @@ function collectIndentedBlock(lines, start) {
   return { raw, next: i };
 }
 
+const LICENSE_FILENAMES = ["LICENSE", "LICENSE.txt", "LICENSE.md", "COPYING"];
+const LICENSE_TEMPLATE_PLACEHOLDERS = ["[yyyy]", "[name of copyright owner]"];
+
+// 缺许可证不阻断合并（存量技能需要逐个确认上游），但占位符没填的许可证是
+// 明确的错：它会让下游以为拿到了授权，实际权利人一栏还是模板原文。
+function validateSkillLicense(skillName, skillPath) {
+  const found = LICENSE_FILENAMES.map((name) => path.join(skillPath, name)).find((abs) => fs.existsSync(abs));
+  if (!found) {
+    warn(`${skillName}: no license file (LICENSE, LICENSE.txt, LICENSE.md, COPYING)`);
+    return;
+  }
+
+  const text = fs.readFileSync(found, "utf8");
+  if (text.trim() === "") {
+    fail(`${skillName}: license file is empty: ${path.basename(found)}`);
+    return;
+  }
+
+  for (const placeholder of LICENSE_TEMPLATE_PLACEHOLDERS) {
+    if (text.includes(placeholder)) {
+      fail(`${skillName}: license file still contains template placeholder ${placeholder}: ${path.basename(found)}`);
+    }
+  }
+}
+
 function validateSkillFrontmatter(skillName, fm) {
   const required = ["name", "description", "author", "version"];
   for (const k of required) {
@@ -446,6 +471,8 @@ function main() {
     } catch (e) {
       fail(`${skillName}: invalid frontmatter: ${e?.message ?? String(e)}`);
     }
+
+    validateSkillLicense(skillName, skillPath);
 
     const files = walkDir(skillPath, skillName);
 

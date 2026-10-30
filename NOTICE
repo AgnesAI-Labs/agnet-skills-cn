@@ -1,0 +1,9 @@
+Agent Skills
+Copyright 2026 the AgnesAI-Labs contributors
+
+This distribution includes skills written by other authors under their own licenses.
+Each skill directory contains the license that applies to it. The file LICENSES.md lists
+every third-party skill with its upstream project, the copyright holder, and the license.
+
+Skills without a license file are first-party, apart from the entries LICENSES.md marks as
+having no confirmed license. Those must not be redistributed.

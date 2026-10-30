@@ -1,6 +1,10 @@
 # Agent Skills
 
-A collection of reusable **Agent Skills** maintained by Block to help AI agents perform real-world tasks more effectively.
+A collection of reusable **Agent Skills** for AI agents. The repository mixes skills written
+here with skills adapted from other open-source projects, so it does not have a single author
+or a single license. Each skill directory carries the license that applies to it. `LICENSES.md`
+lists the upstream project, copyright holder, and license for every third-party skill, and
+`NOTICE` summarizes how the repository is distributed.
 
 These skills are designed to be:
 - ✅ Portable across agents (Agnes, Claude Desktop, and others that support agent skills)

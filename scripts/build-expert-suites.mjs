@@ -44,9 +44,16 @@ const FIXED_FILE_MODE = 0o100644;
 const REQUIRED_STRING_FIELDS = ["id", "name", "name_zh", "description", "description_zh", "version", "category"];
 
 const problems = [];
+const warnings = [];
 
 function record(suiteId, message) {
   problems.push(`[${suiteId}] ${message}`);
+}
+
+// 授权缺失不阻断打包：套件里可能确实有尚未确认来源的技能，此时包内 NOTICE
+// 标成 not specified，构建末尾统一列出，由维护者决定是否下架该技能。
+function warn(suiteId, message) {
+  warnings.push(`[${suiteId}] ${message}`);
 }
 
 function compareNames(a, b) {
@@ -247,6 +254,59 @@ function buildPluginManifest(suite, mcpServers) {
   return Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 }
 
+// ------------------------------ NOTICE ------------------------------
+
+const LICENSE_FILENAMES = ["LICENSE", "LICENSE.txt", "LICENSE.md", "COPYING"];
+
+function readSkillLicense(skill) {
+  for (const name of LICENSE_FILENAMES) {
+    const file = path.join(skill.dir, name);
+    if (fs.existsSync(file)) return fs.readFileSync(file, "utf8");
+  }
+  return null;
+}
+
+function describeLicense(text) {
+  if (/Creative Commons Attribution-ShareAlike 4\.0/i.test(text)) return "CC BY-SA 4.0";
+  if (/Apache License\s+Version 2\.0/i.test(text)) return "Apache-2.0";
+  if (/MIT License/i.test(text) || /Permission is hereby granted, free of charge/i.test(text)) return "MIT";
+  return "see license file";
+}
+
+// Apache 正文里有 "copyright notice that is included in or attached to the work"
+// 这类小写句子，只有附录的权利人行才是大写 Copyright 开头，因此这里区分大小写，
+// 并跳过尚未填写的模板占位。
+function copyrightLine(text) {
+  const line = text
+    .split(/\r?\n/)
+    .find((l) => /^\s*Copyright\b/.test(l) && !l.includes("[yyyy]") && !l.includes("[name of copyright owner]"));
+  return line ? line.trim() : null;
+}
+
+// 套件把多个来源的技能打进同一个包，用户下载后需要在一个地方看到各项授权，
+// 否则只能逐个翻 skills/ 下的许可证文件。
+function buildNotice(suite, licenses) {
+  const sections = licenses.map(({ skill, text }) => {
+    const lines = [`skills/${skill.name}`, `  License: ${text ? describeLicense(text) : "not specified"}`];
+    const holder = text ? copyrightLine(text) : null;
+    if (holder) lines.push(`  ${holder}`);
+    return lines.join("\n");
+  });
+
+  const body = [
+    `${suite.name} (${suite.id} ${suite.version})`,
+    "",
+    "This package bundles skills written by several authors. Each skill keeps its own",
+    "license inside its directory, and that file governs the skill. This NOTICE is a",
+    "summary for convenience.",
+    "",
+    ...sections,
+    "",
+  ].join("\n");
+
+  return Buffer.from(body, "utf8");
+}
+
 // ------------------------------ ZIP ------------------------------
 
 const CRC_TABLE = (() => {
@@ -418,6 +478,11 @@ function buildSuite(suite, servers) {
   }
 
   const skillFiles = skills.flatMap((skill) => collectSkillFiles(suite.id, skill));
+  const licenses = skills.map((skill) => ({ skill, text: readSkillLicense(skill) }));
+  for (const { skill, text } of licenses) {
+    if (!text) warn(suite.id, `skill "${skill.name}": no license file, NOTICE marks it unspecified`);
+  }
+  const notice = buildNotice(suite, licenses);
   const pluginJson = buildPluginManifest(suite, mcpServers);
 
   const manifestCheck = JSON.parse(pluginJson.toString("utf8"));
@@ -426,7 +491,7 @@ function buildSuite(suite, servers) {
     return null;
   }
 
-  const files = [{ name: "plugin.json", data: pluginJson, size: pluginJson.length }, ...skillFiles.map((f) => ({
+  const files = [{ name: "plugin.json", data: pluginJson, size: pluginJson.length }, { name: "NOTICE", data: notice, size: notice.length }, ...skillFiles.map((f) => ({
     name: f.name,
     data: fs.readFileSync(f.absPath),
     size: f.size,
@@ -562,6 +627,12 @@ function main() {
   }
 
   console.log(`\nBuilt ${built.length} expert suite package(s).`);
+
+  if (warnings.length > 0) {
+    console.warn("\nLicense warnings (packaged, NOTICE marks them unspecified):");
+    for (const warning of warnings) console.warn(`  ⚠️  ${warning}`);
+  }
+
   process.exit(0);
 }
 
