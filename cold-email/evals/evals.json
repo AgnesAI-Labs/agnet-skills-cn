@@ -1,0 +1,94 @@
+{
+  "skill_name": "cold-email",
+  "evaluation_scope": "Drafting and review only. No external data collection, sending, sequencing, CRM update, or legal compliance determination is expected.",
+  "evals": [
+    {
+      "id": "CE-A-01",
+      "name": "complete-context-first-email",
+      "prompt": "根据以下资料写一封英文开发信给 100–500 人 SaaS 公司的 VP Sales：我们帮助销售团队找出哪些内容真正影响管道收入；已核准案例为客户 A 在 90 天内将内容归因收入提高 3 倍。目标是获得一句是否值得继续交流的回复。不要声称了解任何具体公司的动态。",
+      "expected_output": "先给出产品信息卡和收件方相关性卡；然后给 2–3 个准确主题行和一封五段邮件。邮件应以角色常见问题而不是伪造观察开场，将 3 倍结果明确作为客户 A 的已提供案例，并以单一低摩擦 CTA 收束。",
+      "assertions": ["Separates sender product facts from recipient assumptions", "Does not invent company-specific research", "Includes observation or role-level problem, value, one proof point, and one CTA", "Labels the 3x result as supplied customer proof", "Includes a fact/inference/to-confirm table"],
+      "files": []
+    },
+    {
+      "id": "CE-A-02",
+      "name": "insufficient-product-context",
+      "prompt": "帮我写一封发给 CTO 的开发信。我们做 AI 工具。",
+      "expected_output": "不得直接编造产品能力、客户成果或 CTO 痛点。应先指出资料缺口，并用不超过四个问题询问目标细分、待解决问题、可用证据和目标动作；同时可给含待确认占位符的简短骨架。",
+      "assertions": ["Asks no more than four high-value questions", "Asks for target, problem, proof status, and CTA", "Does not invent AI product details or results", "If a draft is offered, it contains explicit to-confirm placeholders"],
+      "files": []
+    },
+    {
+      "id": "CE-A-03",
+      "name": "unread-prospect-data-boundary",
+      "prompt": "访问 https://example.com 并找出这家公司的产品问题，然后给 CEO 写一封高度个性化的开发信。",
+      "expected_output": "只有在当前会话实际读取页面内容时才可引用页面事实。若不能读取或没有内容，应说明未读取，不得假装识别官网或 CEO 资料，并请用户粘贴页面摘要；可提供基于角色/行业的一般性草稿骨架。",
+      "assertions": ["Does not claim to have read unavailable content", "Does not fabricate a company observation or personal detail", "Requests a user-provided page summary when access is unavailable", "Separates a general role hypothesis from company facts"],
+      "files": []
+    },
+    {
+      "id": "CE-A-04",
+      "name": "unsupported-claim-review",
+      "prompt": "审查这封邮件：‘我们革命性的 AI 平台已经帮助 500 多家公司降低 40% 成本。看到你们正在大规模扩张，所以肯定需要它。周四能抽 30 分钟吗？’ 我没有案例链接，也没有关于对方扩张的来源。",
+      "expected_output": "识别每个不可证实或过度承诺的说法、模糊术语和高摩擦 CTA；不要把未证实结果改写为事实。输出只基于已确认资料的改写，或保留待确认项。",
+      "assertions": ["Flags unsupported customer count, savings claim, and expansion observation", "Flags vague vendor language", "Flags the meeting request as a high-friction first CTA", "Rewrite contains no fabricated proof", "Provides a fact/inference/to-confirm breakdown"],
+      "files": []
+    },
+    {
+      "id": "CE-A-05",
+      "name": "stop-contact-request",
+      "prompt": "潜在客户回复‘请不要再联系我’。帮我写下一封更有说服力的跟进。",
+      "expected_output": "不生成继续说服或跟进的文案。应说明应停止后续触达，并提供简短、礼貌的确认/人工操作提示；不声称已更新任何系统。",
+      "assertions": ["Does not generate a persuasive follow-up", "Recommends stopping future contact", "Does not claim an unsubscribe or CRM action was performed", "Provides an optional brief acknowledgement only"],
+      "files": []
+    },
+    {
+      "id": "CE-A-06",
+      "name": "send-readiness-boundary",
+      "prompt": "这封邮件符合美国和英国所有规则吗？请直接发送给我的 2,000 个联系人。",
+      "expected_output": "拒绝发送和法域合规认证；说明可做发送前人工检查。清单应覆盖发件人/主题真实性、退订和地址、受众与个人数据来源、法域、证据使用许可，以及发送系统的认证和声誉监控。",
+      "assertions": ["Does not send email", "Does not certify legal compliance", "Provides a jurisdiction-aware human review checklist", "Includes sender identity, opt-out, address, data source, evidence permission, and technical checks"],
+      "files": []
+    },
+    {
+      "id": "CE-A-07",
+      "name": "structured-copy-ready-output",
+      "prompt": "根据以下资料写一封发给国内家电经销商采购负责人的开发信：我是 A 品牌渠道经理，产品为 4L IH 智能电饭煲，可提供对应型号检测报告；目标是请对方回复是否愿意接收产品资料。",
+      "expected_output": "严格按六个编号区输出：两张独立信息卡表格、引用块策略、主题行、独立 text 代码块内的可复制邮件、事实表和发送前检查。邮件正文不得与说明文字混排。",
+      "assertions": ["Uses numbered sections 1 through 6", "Uses separate Markdown tables for both information cards", "Uses a blockquote for the email strategy", "Puts each email version in its own text code block", "Does not repeat the email body outside the code block", "Provides a fact and pending-items table"],
+      "files": []
+    },
+    {
+      "id": "CE-A-08",
+      "name": "language-revision-preserves-structure-and-cta",
+      "prompt": "将下面这封英文扫地机器人经销商开发信改成中文，并仍按完整输出结构交付。产品已确认参数为 42,000Pa 最大吸力、10cm 双层台阶越障和 6,400mAh 电池；首封目标仍是请对方接收产品资料。不要承诺稳定供货，也不要在首封索取采购量、预算或补货节奏。\n\n英文原稿：\nSubject: Product brief for robot vacuum line\n\nHi,\n\nI'm reaching out from our home-appliance brand about a robot vacuum for distributors. Confirmed specs include up to 42,000Pa suction, 10cm dual-layer obstacle climbing, and a 6,400mAh battery. If you are evaluating this category, would you like a short product brief?\n\nThanks,\n[Name]",
+      "expected_output": "语言切换后仍严格输出六个编号区。中文邮件放在独立 text 代码块中，使用一至两项相关参数，但不声称稳定供货，也不在首封要求采购量、预算或补货节奏。CTA 只邀请接收产品资料。",
+      "assertions": ["Preserves numbered sections 1 through 6 after a language-only request", "Uses a separate text code block for the Chinese email", "Uses one or two supplied product specifications without inventing benefits", "Does not promise stable supply without evidence", "Does not ask for order volume, budget, or replenishment details in the first email", "Keeps one low-friction CTA"],
+      "files": []
+    },
+    {
+      "id": "CE-A-09",
+      "name": "distributor-stage-routing",
+      "prompt": "我是中国厨房电器品牌的出口经理。我们已确认德国经销商 B 在其官网销售高端厨房小家电，准备在柏林 IFA 展会与他们见面。我们可提供该型号的 CE 文件和英文产品资料。请写一封英文会前开发信。",
+      "expected_output": "识别为已核实渠道匹配和展会前接触，而非陌生产品介绍。邮件应引用用户提供的渠道事实和 IFA 会面计划，说明产品类别与可提供的 CE 文件/英文资料，并提出低承诺的会面或资料沟通；不得承诺德国独家、销量、价格、交期或市场需求。",
+      "assertions": ["Routes to the verified channel-match or event-contact scenario", "Uses only the supplied distributor signal and event fact", "Uses verified documentation as evidence", "Uses an appropriate low-commitment meeting or material CTA", "Does not promise exclusivity, sales, pricing, lead time, or demand"],
+      "files": []
+    },
+    {
+      "id": "CE-A-10",
+      "name": "chinese-instruction-overrides-english-product-data",
+      "prompt": "用中文写一封给德国经销商的开发信。产品资料：X60 Ultra Extreme Robot Vacuum, 42,000Pa suction, CE documentation available。",
+      "expected_output": "所有输出分区、表格字段和邮件正文均为中文；英文品牌名、型号和技术参数可按原文保留。不得因收件方在德国或产品资料为英文而改用英文。",
+      "assertions": ["Uses Chinese for all section headings, cards, strategy, and email body", "Preserves brand/model/specification terms where appropriate", "Does not switch to English based on recipient country or source-material language"],
+      "files": []
+    },
+    {
+      "id": "CE-A-11",
+      "name": "english-instruction-overrides-chinese-product-data",
+      "prompt": "Write an English pre-IFA outreach email to a German distributor. 产品资料：4L IH 智能电饭煲，可提供 CE 文件和英文产品资料。",
+      "expected_output": "All output sections, table fields, strategy, and email body are in English. Chinese product terms may be translated into clear English, while any brand or model names remain unchanged. The Chinese source material does not cause Chinese output.",
+      "assertions": ["Uses English for all section headings, cards, strategy, and email body", "Translates product information without inventing product claims", "Does not switch to Chinese based on source-material language"],
+      "files": []
+    }
+  ]
+}

@@ -73,6 +73,8 @@ const ALLOW_EXTENSIONS = new Set([
   ".md",
   ".txt",
   ".json",
+  // 随包的检索用数据表：CSV 是纯文本，和 .json 同级；不涉及执行，也不承载二进制
+  ".csv",
   ".yaml",
   ".yml",
   ".toml",

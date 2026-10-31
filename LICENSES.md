@@ -116,6 +116,56 @@ License: MIT, Copyright (c) 2026 Claude Office Skills Contributors.
 | table-extractor |
 | transcription-automation |
 
+### nextlevelbuilder/ui-ux-pro-max-skill
+
+License: MIT, Copyright (c) 2024 Next Level Builder.
+
+| Skill | Upstream revision |
+| --- | --- |
+| ui-ux-pro-max | not recorded |
+
+### affaan-m/ECC
+
+License: MIT, Copyright (c) 2026 Affaan Mustafa.
+
+| Skill | Upstream revision |
+| --- | --- |
+| market-research | 90606c8 |
+| scientific-thinking-scholar-evaluation | not recorded |
+| scientific-thinking-literature-review | not recorded |
+
+### coreyhaines31/marketingskills
+
+License: MIT, Copyright (c) 2025 Corey Haines.
+
+| Skill | Upstream revision |
+| --- | --- |
+| cold-email | not recorded |
+
+### openclaw/openclaw
+
+License: MIT, Copyright (c) 2026 OpenClaw Foundation.
+
+| Skill | Upstream revision |
+| --- | --- |
+| weather | not recorded |
+
+### mdealiaga/openpet
+
+License: MIT, Copyright (c) 2026 mdealiaga.
+
+| Skill | Upstream revision |
+| --- | --- |
+| openpet | 9fe4012 |
+
+### NousResearch/hermes-agent
+
+License: MIT, Copyright (c) 2025 Nous Research.
+
+| Skill | Upstream revision |
+| --- | --- |
+| songwriting-and-ai-music | not recorded |
+
 ### Anthropic, PBC
 
 License: Apache-2.0, Copyright 2026 Anthropic, PBC.

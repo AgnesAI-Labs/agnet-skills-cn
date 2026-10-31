@@ -1,0 +1,7 @@
+interface:
+  display_name: "Market Research"
+  short_description: "Evidence-based market and competitor research"
+  brand_color: "#2563EB"
+  default_prompt: "Use $market-research to answer a market question with the relevant evidence-backed research modules."
+policy:
+  allow_implicit_invocation: true
