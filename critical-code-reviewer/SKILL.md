@@ -10,8 +10,8 @@ description: >-
 description_zh: >-
   对代码或 PR 做不留情面的评审：正确性、安全、可访问性、可维护性、测试覆盖和边界条件逐条给证据和改法，也能直接整理成 GitHub 评审内容发给作者。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 严格审一下这段代码
   - 帮我审这个 PR，别客气

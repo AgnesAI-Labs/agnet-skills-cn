@@ -9,8 +9,8 @@ description: >-
 description_zh: >-
   从产品需求到可运行的前端界面，帮助你完成网页、落地页、仪表盘、应用页面和前端组件的设计与开发。它会结合目标用户和产品场景确定视觉方向，编写界面代码，并关注页面布局、交互状态、移动端适配和可访问性。适用于搭建或改进 Web 产品界面。
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 帮我设计一个登录页
   - 这个页面的视觉不太行，重新设计一下

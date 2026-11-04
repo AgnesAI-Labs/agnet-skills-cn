@@ -12,8 +12,8 @@ description: >-
 description_zh: >-
   从创意到成片，轻松完成 AI 视频创作！支持文字、图片、音频、已有视频片段等多种素材，可进行视频脚本与分镜规划、关键帧设计、多镜头画面生成、片段拼接、配音字幕及成片修订，并帮助保持跨镜头内容的连贯性。适用于 AI 短剧、广告宣传、知识讲解、产品展示及长视频制作。
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 把这段素材剪成一个视频
   - 帮我生成一段产品介绍视频

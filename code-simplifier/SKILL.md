@@ -10,8 +10,8 @@ description: >-
 description_zh: >-
   在不改变功能的前提下把代码改简单：命名、嵌套、重复、职责边界都按项目自己的风格收一遍。适合刚改完一段代码想收拾一下，或者审查时觉得写复杂了。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 这段代码帮我简化一下
   - 刚写的这段收拾收拾

@@ -17,8 +17,8 @@ description: >-
 description_zh: >-
   把后端接口定义和前端的调用代码对着比，双向找契约漂移：字段改名或删除、新增必填参数、状态码变化，以及前端还在传后端已经不读的字段。适合合并前确认前后端没对不上。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 看看这次改动有没有破坏接口
   - 前后端字段还对得上吗

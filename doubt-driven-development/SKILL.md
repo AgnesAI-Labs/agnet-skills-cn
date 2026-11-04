@@ -12,8 +12,8 @@ description: >-
 description_zh: >-
   每个不简单的决定先交给一个不带前情的视角挑刺：假设站不站得住、失败模式在哪、有没有更便宜的做法。适合生产鉴权、不可逆操作、陌生代码这类做错了代价很高的场合。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我压测一下这个方案
   - 这个假设真的成立吗

@@ -5,8 +5,8 @@ description: Rewrite vague, ineffective, or unstable prompts into a version you 
 description_zh: >-
   提示词写得不够清楚，或 AI 的回答总是不符合预期？提示词优化师可以帮你梳理任务目标、补足必要背景、明确输出格式和内容边界，并将提示词改写成可直接使用的版本。你也可以提供原提示词和不满意的回答，它会根据两者的差异定位问题、调整指令，并为复杂任务提供测试建议。适用于日常对话提示词、系统提示词、Agent 指令，以及需要依据资料作答或按固定格式输出的场景。
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 帮我优化一下这个提示词：「帮我写一篇关于人工智能的文章」，让 AI 生成的内容更专业、更有深度。
 examples:

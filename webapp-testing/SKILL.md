@@ -4,9 +4,9 @@ name_zh: Web 应用测试
 description: Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs. For general browser automation or scraping, use the browser-automation skill instead.
 description_zh: >-
   用 Playwright 写脚本测试本地 Web 应用：启动开发服务器、操作页面、截图、读控制台日志、检查网络请求。适合验证前端行为、排查界面问题、抓取页面当前状态。通用浏览器自动化用 browser-automation，本技能专注本地 Web 应用的测试与验证。
-category: automation
-category_name: System & Automation
-category_name_zh: 系统与自动化
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 帮我测一下这个页面
   - 这个按钮点了没反应，看看控制台报什么

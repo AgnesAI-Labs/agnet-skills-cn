@@ -5,8 +5,8 @@ description: Comprehensive code review checklist for pull requests
 description_zh: >-
   代码提交前，帮你把好质量关！针对 Pull Request 中的代码变更进行系统性审查，依据审查清单检查潜在错误、逻辑问题与需要改进的实现细节，梳理问题与优化建议，让代码评审更全面、更高效。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 sort: 1
 examples_zh:
   - 审查一下这个 PR 的改动

@@ -8,8 +8,8 @@ description: >-
   infographic series.
 description_zh: 生成小红书图文卡片，12 种视觉风格、8 种布局、3 套配色
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 做一套小红书图文，主题是露营装备清单
   - 把这个链接的文章转成小红书卡片

@@ -11,8 +11,8 @@ description_zh: >-
   接手一个陌生仓库时先整体走一遍：识别技术栈、目录结构、构建与测试方式、CI
   与部署、外部依赖和潜在坑点，产出一组结构化的仓库文档。适合新人入手或者要把老项目讲给别人听。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我摸清这个代码库
   - 带我熟悉这个仓库

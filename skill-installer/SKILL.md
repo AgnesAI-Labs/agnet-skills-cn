@@ -6,8 +6,8 @@ description: >-
   skill, or install a skill from another repo (including private repos).
 description_zh: 安装和管理技能
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我装一个技能
   - 看看有哪些技能可以安装

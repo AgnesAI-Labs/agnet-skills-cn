@@ -5,8 +5,8 @@ description: Guides systematic root-cause debugging. Use when tests fail, builds
 description_zh: >-
   从现象出发，先复现、再缩小范围、定位根因，最后才动手改，不靠猜。测试挂了、构建报错、行为跟预期不符、昨天还好好的今天不行了，都可以用它走一遍排查流程。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我查一下这个报错
   - 测试挂了，看看什么原因

@@ -11,8 +11,8 @@ description: >-
 description_zh: >-
   功能或修复做完之后，审测试本身：设计合不合理、断言够不够、有没有漏掉的场景，并对着实现代码找覆盖缺口。适合测试写得虚、经常挂、或者不确定够不够的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我审一下这些测试
   - 这些测试够不够

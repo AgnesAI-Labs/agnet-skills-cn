@@ -8,8 +8,8 @@ description: >-
   copyright violations.
 description_zh: 用 p5.js 做生成艺术，可交互调参
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 用代码生成一幅流场风格的艺术图，配色偏冷
   - 做一组粒子系统的生成艺术，参数可调

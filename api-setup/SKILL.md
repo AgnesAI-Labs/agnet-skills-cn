@@ -5,8 +5,8 @@ description: Set up API integration with configuration and helper scripts
 description_zh: >-
   让 API 接入更简单！通过配置文件和辅助脚本，帮助你完成新 API 的集成配置，梳理接口接入所需的参数与操作步骤，减少重复配置工作，让第三方服务更方便地接入现有项目。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我接入这个 API，包括配置和调用示例
   - 为新的第三方服务建立 API 集成

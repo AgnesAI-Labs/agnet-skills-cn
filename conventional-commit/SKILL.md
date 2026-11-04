@@ -10,8 +10,8 @@ description_zh: >-
   按 Conventional Commits
   规范写提交信息：类型、范围、描述、正文与脚注分别怎么填，附示例和自检方法。适合团队要统一提交历史格式的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 按规范写条提交信息
   - 这个提交信息格式对不对

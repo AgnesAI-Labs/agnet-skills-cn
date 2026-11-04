@@ -2,9 +2,9 @@
 name: meeting-notes
 description: '>'
 description_zh: 整理会议纪要，提取决议与行动项
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 把这段会议录音整理成纪要
   - 提取这次会议的决议和待办

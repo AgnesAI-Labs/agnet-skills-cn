@@ -11,8 +11,8 @@ description: >-
 description_zh: >-
   分析一个代码库并产出完整的架构说明：技术栈、分层与模块边界、关键实现模式、依赖关系，以及后续扩展时该守住的约束。适合需要一份能长期维护的架构文档。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 生成一份架构蓝图
   - 把这个项目的架构整理出来

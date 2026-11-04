@@ -8,9 +8,9 @@ description: >-
   URL/file with translation intent. Supports three modes (quick/normal/refined)
   with custom glossary support.
 description_zh: 中英互译，支持精翻
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 把这篇英文文章精翻成中文
   - 翻译这份文档，保持术语一致

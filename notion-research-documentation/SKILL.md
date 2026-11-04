@@ -6,8 +6,8 @@ description: >-
   reports with citations.
 description_zh: 把调研结果汇总成简报
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 把这次调研整理成一份简报
   - 把这些资料汇总成 Notion 文档

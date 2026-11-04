@@ -15,9 +15,9 @@ description: >-
 description_zh: >-
   按 Sentry
   工程博客的标准写和改技术文章：开场怎么写、结构怎么搭、例子给到什么程度、哪些地方该展开。写产品发布、工程深潜或技术长文都可以用，语气要求贴合该站点。
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 帮我写一篇关于这个功能的博客
   - 看看我这篇技术文章

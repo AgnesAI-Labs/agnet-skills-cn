@@ -7,8 +7,8 @@ description: >-
   shadcn/ui components - not for simple single-file HTML/JSX artifacts.
 description_zh: 用 React 和 Tailwind 做可交互网页产物
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 做一个能在浏览器里交互的页面
   - 把这个想法做成可点击的原型

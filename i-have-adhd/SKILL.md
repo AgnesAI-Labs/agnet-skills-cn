@@ -7,8 +7,8 @@ description: >-
   "stop adhd mode".
 description_zh: 让输出直接给答案，不把结论埋在长文里
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 直接告诉我结论，别绕
   - 把答案放最前面，细节往后放

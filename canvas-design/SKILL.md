@@ -7,8 +7,8 @@ description: >-
   never copying existing artists' work to avoid copyright violations.
 description_zh: 生成海报与视觉稿，输出 PNG 和 PDF
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 做一张 A4 的活动海报
   - 生成一张简约风格的视觉稿

@@ -5,8 +5,8 @@ description: Hardens code against vulnerabilities. Use when auditing an input ha
 description_zh: >-
   按信任边界检查输入、认证、会话、数据存储、依赖漏洞和隐私要求，对照 OWASP Top 10 找出风险点。适合处理用户输入、登录流程、文件上传、第三方接口，或者要审一遍依赖漏洞的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我审一下这段处理用户输入的代码
   - 这个登录流程安全吗

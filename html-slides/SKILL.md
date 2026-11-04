@@ -3,8 +3,8 @@ name: html-slides
 description: '>'
 description_zh: 用 HTML 和 reveal.js 做演示
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 把这篇文章做成 HTML 演示稿
   - 用 reveal.js 做一份分享用的幻灯片

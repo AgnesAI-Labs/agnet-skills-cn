@@ -13,8 +13,8 @@ description: >-
   file.
 description_zh: 生成深色主题的 SVG 图表，覆盖架构图、流程图等类型
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 把这个系统画成架构图
   - 用 SVG 画一张深色主题的流程图

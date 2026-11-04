@@ -9,8 +9,8 @@ description: >-
 description_zh: >-
   收到代码评审意见之后先核对再动手，不照单全收。逐条判断意见是否成立、有没有更合适的改法，需要时用代码和测试验证，最后说明哪些改了、哪些没改以及原因。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 评审提了一堆意见，我该怎么处理
   - 这些修改建议要全改吗

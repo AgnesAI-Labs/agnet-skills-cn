@@ -3,8 +3,8 @@ name: data-report
 description: 'Turns CSV, Excel, or JSON data into a polished visual report page.'
 description_zh: 数据报告的排版与呈现
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这份数据做成一份报告
   - 生成一份带图表的月度数据报告

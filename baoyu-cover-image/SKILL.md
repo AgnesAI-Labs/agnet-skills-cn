@@ -7,8 +7,8 @@ description: >-
   asks to "generate cover image", "create article cover", or "make cover".
 description_zh: 生成文章封面图，可按类型、配色、渲染、文字、氛围五个维度定制
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 给这篇文章做一张封面图
   - 按科技风格生成封面，配色用深蓝

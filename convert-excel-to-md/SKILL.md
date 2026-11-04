@@ -18,8 +18,8 @@ description: >-
 description_zh: >-
   先把 .xlsx 工作簿转成 Markdown 再处理：读、汇总、比对、取数这类请求都走转换，避免直接猜表格结构。支持一次处理一整个文件夹里的多个表格。
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这个表格转成 markdown
   - 看看这份 xlsx 里有什么

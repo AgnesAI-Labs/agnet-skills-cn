@@ -4,9 +4,9 @@ description: >-
   Set up news monitoring strategies, analyze news coverage, and synthesize
   current events. Create news digests and media analysis reports.
 description_zh: 新闻监控与汇总
-category: research
-category_name: Search & Research
-category_name_zh: 搜索与调研
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 盯一下这个行业最近的新闻
   - 帮我汇总今天关于这家公司的消息

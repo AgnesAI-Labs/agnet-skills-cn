@@ -14,8 +14,8 @@ description: >-
   lifecycle phase maps, block decomposition trees, and onboarding guidance.
 description_zh: 编辑级风格的图表设计
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 做一张编辑风格的图表，用于文章配图
   - 把这组数据画成好看的信息图

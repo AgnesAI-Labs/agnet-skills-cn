@@ -5,8 +5,8 @@ description: Breaks work into ordered tasks. Use when you have a spec or clear r
 description_zh: >-
   拿到规格却不知道从哪下手？把工作拆成有顺序、能单独验证的小任务，标出依赖关系和可以并行的部分，让每一步都有明确的完成标准。适合任务太大无法一次做完，或者需要多个会话、多个代理协作的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 把这个方案拆成任务
   - 这活太大，不知道从哪开始

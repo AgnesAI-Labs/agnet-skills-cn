@@ -13,8 +13,8 @@ description: >-
 description_zh: >-
   为仓库写一份安全模型文档：信任边界在哪、哪些不变量必须成立、什么算可报的漏洞、哪些是明确排除的。给安全扫描和人工评审当判据，减少误报和漏报。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 给这个仓库写份安全模型
   - 定一下什么算漏洞

@@ -10,8 +10,8 @@ description: >-
 description_zh: >-
   动手前先查官方文档确认做法，避免用过时的写法，产出里标明依据来自哪里。适合框架和库的用法拿不准、或者正确性比速度更重要的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 照着官方文档来写
   - 这个 API 现在该怎么用，先查文档

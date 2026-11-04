@@ -10,8 +10,8 @@ description: >-
 description_zh: >-
   把一个还很模糊的想法收敛成能动手的方案：先发散列出可能的方向，再用明确标准筛选，同时压力测试背后的假设。适合现在只有一句「我想做个东西」的时候。
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 帮我打磨一下这个想法
   - 这个点子该怎么落地

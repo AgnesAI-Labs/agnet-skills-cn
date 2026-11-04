@@ -3,8 +3,8 @@ name: pdf-ocr
 description: Extract text from scanned PDFs using optical character recognition
 description_zh: 扫描件 OCR 识别
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 这份扫描件帮我识别成文字
   - 把这个 PDF 图片里的内容提取出来

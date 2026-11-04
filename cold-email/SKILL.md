@@ -11,7 +11,7 @@ description_zh: >-
   基于已提供或当前会话实际读取的产品资料与公开业务信号，生成并审查 B2B 冷启动邮件、跟进邮件和回复草稿。适用于“帮我写开发信”“根据产品介绍写外联邮件”“审查这封冷邮件”“设计邮件跟进”，以及资料不足时梳理产品价值和补问关键上下文。
   不会自动抓取客户资料、验证邮箱、发送邮件、建立序列或写入 CRM。
 category: business
-category_name: Business & Marketing
+category_name: Business Operations
 category_name_zh: 商业运营
 examples_zh:
   - 根据这份产品介绍，帮我写一封发给跨境电商采购负责人的开发信

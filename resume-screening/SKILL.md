@@ -12,8 +12,8 @@ description: >-
   candidates, resume ranking.
 description_zh: 简历筛选与岗位匹配打分
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 筛一下这些简历，挑出匹配的
   - 按这个岗位要求给简历打分

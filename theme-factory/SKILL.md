@@ -7,8 +7,8 @@ description: >-
   generate a new theme on-the-fly.
 description_zh: 把预设主题应用到文档、演示与网页
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 给这份文档套一个主题
   - 帮我配一套配色和字体

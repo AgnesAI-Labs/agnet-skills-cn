@@ -6,8 +6,8 @@ description: >-
   and more.
 description_zh: 用 Mermaid 和 PlantUML 生成流程图、时序图与架构图
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 画一张系统架构图
   - 把这个流程画成流程图

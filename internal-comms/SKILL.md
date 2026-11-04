@@ -7,9 +7,9 @@ description: >-
   leadership updates, 3P updates, company newsletters, FAQs, incident reports,
   project updates, etc.).
 description_zh: 撰写状态报告、FAQ 与内部通讯
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 写一份项目状态报告
   - 帮我写一封内部通知

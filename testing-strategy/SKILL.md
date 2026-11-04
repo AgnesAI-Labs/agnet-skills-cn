@@ -5,8 +5,8 @@ description: Guidelines for writing effective tests in this project
 description_zh: >-
   不知道项目该怎么测、重点测什么？结合项目代码和功能特点，帮助制定针对性的测试策略，梳理关键测试场景、测试用例设计思路与有效测试的编写方法，让测试覆盖更有重点，减少重要问题被遗漏的风险。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 sort: 1
 examples_zh:
   - 帮我规划这个功能的测试策略

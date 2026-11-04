@@ -5,9 +5,9 @@ description: >-
   multiple angles, provide structured analysis, and generate detailed research
   reports.
 description_zh: 针对一个主题做深度调研
-category: research
-category_name: Search & Research
-category_name_zh: 搜索与调研
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 帮我深入研究一下这个主题
   - 调研这个行业的现状并给出结论

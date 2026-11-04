@@ -7,8 +7,8 @@ description: >-
 description_zh: >-
   给指定文件补上便于理解的注释：这段代码在做什么、为什么这么写、用到了哪些语言特性。适合做教学材料、示例代码，或者想让不熟悉的人快速读懂一段实现。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 给这个文件加些讲解注释
   - 这段代码注释写得通俗点

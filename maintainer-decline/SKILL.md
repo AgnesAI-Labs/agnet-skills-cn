@@ -11,9 +11,9 @@ description: >-
   communicate an effort/scope tradeoff to a contributor.
 description_zh: >-
   以维护者身份把「不做」说清楚：关闭功能请求、标成不修复、引导用户去别的项目、解释设计取舍或工作量权衡。重点是拒绝得体面又不留模糊空间。
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 帮我写个拒绝这个需求的回复
   - 这个 issue 想关掉，怎么说

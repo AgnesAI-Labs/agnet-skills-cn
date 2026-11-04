@@ -4,9 +4,9 @@ description: >-
   Conduct comprehensive company research and due diligence. Analyze business
   model, competitive landscape, management, and market position.
 description_zh: 公司背景调查
-category: research
-category_name: Search & Research
-category_name_zh: 搜索与调研
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 调研一下这家公司的背景
   - 帮我查这个公司的主营业务和规模

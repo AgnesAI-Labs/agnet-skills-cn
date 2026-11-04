@@ -7,8 +7,8 @@ description: >-
 description_zh: >-
   把一个较大的功能或史诗级需求拆成可执行的需求文档：背景与目标、范围和边界、验收标准，以及拆开后的具体条目。适合只有一个粗略想法、需要落到能排期的时候。
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 把这个大需求拆成需求文档
   - 给这个功能写份 PRD

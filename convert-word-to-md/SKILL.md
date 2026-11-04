@@ -19,8 +19,8 @@ description_zh: >-
   先把 .docx 文档转成 Markdown 再处理：读、总结、比对、抽取内容都走转换，保留标题层级和表格结构。支持整个文件夹批量处理，也可以和
   PDF、Excel 的同类技能一起用。
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这个 docx 转成 markdown
   - 读一下这份 Word 文档

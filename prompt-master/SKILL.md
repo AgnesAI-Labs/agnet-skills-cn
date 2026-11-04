@@ -8,8 +8,8 @@ description: >-
   other non-prompt-engineering work.
 description_zh: 为各种 AI 工具生成精准的提示词
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 帮我写一个给 Cursor 用的提示词
   - 这个需求怎么描述给 AI 才准确

@@ -5,9 +5,9 @@ description: >-
   positioning, and market strategies. Generate comprehensive competitive
   intelligence reports.
 description_zh: 竞品分析
-category: research
-category_name: Search & Research
-category_name_zh: 搜索与调研
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 分析一下这几个竞品的差异
   - 做个竞品对比，重点看定价和功能

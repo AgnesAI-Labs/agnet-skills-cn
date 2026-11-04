@@ -2,9 +2,9 @@
 name: file-organizer
 description: Organize and rename files based on content analysis
 description_zh: 按内容分析整理和重命名文件
-category: automation
-category_name: System & Automation
-category_name_zh: 系统与自动化
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 帮我整理一下下载文件夹
   - 把这些文件按类型重命名归档

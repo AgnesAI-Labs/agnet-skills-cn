@@ -7,8 +7,8 @@ description: >-
 description_zh: >-
   功能做完、测试也过了之后，决定这份工作怎么进主干：直接合并、开 PR，还是先清理一遍。会核对分支状态、未提交改动和遗留标记，再给出合并方式与收尾步骤。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 这个功能做完了，怎么合进主干
   - 帮我收尾一下这个分支

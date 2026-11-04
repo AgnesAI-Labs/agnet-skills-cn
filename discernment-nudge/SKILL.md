@@ -17,8 +17,8 @@ description: >
   output format.
 description_zh: 输出结论或建议前先自我质疑一遍
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 给我建议之前，先自己怀疑一遍
   - 这个结论靠谱吗，帮我挑挑毛病

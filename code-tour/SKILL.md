@@ -17,8 +17,8 @@ description_zh: >-
   生成带文件与行号定位的分步导览，按不同角色给不同路线：新人上手、修 bug、评审者、架构师各有重点。适合讲解仓库怎么跑、一次 PR
   改了什么、或者某个问题是哪条链路造成的。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 给这个 PR 做个导览
   - 带我走一遍这个仓库

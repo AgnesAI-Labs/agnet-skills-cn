@@ -11,8 +11,8 @@ description_zh: >-
   合并前把改动从多个维度过一遍：正确性、设计、测试、可读性、性能和兼容性，按严重程度给出结论和修改建议。自己刚写的、别人写的、直接贴进来的 diff
   都能审。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 合并前帮我审一下这次改动
   - 看看这个 PR 质量怎么样

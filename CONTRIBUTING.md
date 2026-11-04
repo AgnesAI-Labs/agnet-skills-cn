@@ -73,8 +73,8 @@ description: Set up API integration with configuration and helper scripts
 author: agnes
 version: "1.0"
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 tags:
 - api
 - integration
@@ -90,8 +90,25 @@ Guidelines:
 * `author` Creator of the skill (GitHub handle, name, or org)
 * `version` Must be a string (quote it), start at "1.0" and increment when you make updates
 * `tags` A list of keywords to help discovery in the marketplace, Use lowercase, short words or phrases
-* `category` is a stable lowercase ID with optional hyphens, such as `development` or `design-tools`
+* `category` is a stable lowercase ID with optional hyphens; pick it from the category table below
 * `category_name` and `category_name_zh` are required English and Chinese display names; every skill and plugin using the same category ID must use identical names
+
+### Categories
+
+The marketplace shows categories in the order below. Use the IDs from this table, and keep `category_name` and `category_name_zh` exactly as written. Adding a category means updating this table and the market's category order together.
+
+| # | category | category_name | category_name_zh |
+| --- | --- | --- | --- |
+| 1 | `productivity` | Office Productivity | 办公效率 |
+| 2 | `content` | Content Creation | 内容创作 |
+| 3 | `data` | Data Analysis | 数据分析 |
+| 4 | `business` | Business Operations | 商业运营 |
+| 5 | `fun` | Fun | 趣味 |
+| 6 | `creative` | Design & Creative | 设计创意 |
+| 7 | `development` | Developer Tools | 开发工具 |
+| 8 | `education` | Education & Research | 教育科研 |
+| 9 | `professional` | Professional Domains | 专业领域 |
+| 10 | `lifestyle` | Life Services | 生活服务 |
 
 ---
 

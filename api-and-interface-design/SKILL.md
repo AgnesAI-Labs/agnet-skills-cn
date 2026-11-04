@@ -5,8 +5,8 @@ description: Guides stable API and interface design. Use when designing APIs, mo
 description_zh: >-
   设计不容易被用错的接口：请求响应结构、错误处理、类型契约、模块边界怎么划。适合新增 API、定义公共接口、重构模块，或者要在前后端之间定边界的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我设计这组接口
   - 这两个模块的边界该怎么划

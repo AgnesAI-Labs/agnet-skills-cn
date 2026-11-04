@@ -5,8 +5,8 @@ description: Prepares production launches. Use when preparing to deploy to produ
 description_zh: >-
   上线前的检查清单：测试、依赖审计、监控、灰度与回滚方案，逐项确认还差什么才能发。适合准备部署生产环境、做数据迁移，或者要判断这次发布能不能上的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我列一份上线检查清单
   - 这次发布还差什么

@@ -3,8 +3,8 @@ name: office-to-md
 description: '>'
 description_zh: Office 文件转 Markdown
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这个 Word 文档转成 Markdown
   - 把这份 PPT 转成 Markdown 大纲

@@ -3,8 +3,8 @@ name: chat-with-pdf
 description: 'Answer questions about PDF content, summarize, and extract information'
 description_zh: 对长 PDF 提问并提取信息
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 这份 PDF 讲了什么，帮我总结一下
   - 从这份报告里找出关于营收的数据

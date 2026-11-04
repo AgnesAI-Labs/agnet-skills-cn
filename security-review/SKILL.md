@@ -10,8 +10,8 @@ description: >-
 description_zh: >-
   按常见漏洞类型系统过一遍代码：注入、XSS、鉴权、加密、反序列化、SSRF、供应链等，按把握程度给结论，拿不准的明确标出来而不是含糊带过。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我做一次安全审查
   - 这段代码有没有漏洞

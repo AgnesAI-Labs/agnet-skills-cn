@@ -13,9 +13,9 @@ description: >-
   Y' reveals, 'no X, no Y, no Z' lists, and sentences that trail into extra
   comma clauses. For writing new copy, see copywriting.
 description_zh: 文案润色与改写
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 帮我润色这段文案
   - 把这篇稿子改得顺一些

@@ -5,8 +5,8 @@ description: >-
   Person Profiles for agents.
 description_zh: 把某个人的思维方式蒸馏成可复用的技能
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 把这段访谈里的思维方式提炼成一个技能
   - 从这篇文章里提炼可复用的方法

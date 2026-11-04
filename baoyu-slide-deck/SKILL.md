@@ -7,8 +7,8 @@ description: >-
   "PPT".
 description_zh: 从内容生成整套幻灯片图片
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 把这份材料做成一套幻灯片
   - 生成 10 页分享用的演示图

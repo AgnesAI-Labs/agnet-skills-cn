@@ -5,8 +5,8 @@ description: Guide for creating high-quality MCP (Model Context Protocol) server
 description_zh: >-
   从零开发 MCP 服务：选 Python FastMCP 还是 Node/TypeScript SDK，设计工具与参数，处理传输方式，用 MCP Inspector 调试，再按评估指南检查工具质量。适合要把外部服务接给 AI 使用的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我写一个 MCP 服务
   - 把这个 API 做成 MCP 工具

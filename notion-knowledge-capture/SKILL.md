@@ -6,8 +6,8 @@ description: >-
   linking.
 description_zh: 把对话整理成知识库条目
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 把这段对话整理成知识库条目
   - 把这次讨论存进 Notion

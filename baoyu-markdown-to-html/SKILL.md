@@ -8,8 +8,8 @@ description: >-
   html", "微信外链转底部引用", or needs styled HTML output from markdown.
 description_zh: 把 Markdown 转成带样式的 HTML，支持代码高亮与多套主题
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这篇 Markdown 转成带样式的 HTML
   - 生成一份适合公众号排版的 HTML

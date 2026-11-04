@@ -12,8 +12,8 @@ description: >-
 description_zh: >-
   一次只问一个问题，问到把用户真正想要的东西弄清楚为止，而不是照着字面需求直接开工。适合需求很粗、没说清给谁用、说不清为什么现在要做的时候。
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 先问问我到底想要什么
   - 这个需求我还没想清楚，你问我

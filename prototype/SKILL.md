@@ -5,8 +5,8 @@ description: Build a throwaway prototype to answer a design question. Use when t
 description_zh: >-
   用丢弃式代码回答一个设计问题：逻辑类做成单页 HTML，用按钮和引导流程把状态机跑一遍；界面类生成多个差异明显的版本，用一个路由加切换栏对比。适合先验证想法、还没打算写正式代码的时候。正式界面开发用 frontend-design，本技能只产出用完即弃的原型。
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 先做个原型看看这套状态流转顺不顺
   - 给我几个差别大点的界面方案

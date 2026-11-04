@@ -8,8 +8,8 @@ description: >-
 description_zh: >-
   针对当前分支的改动找问题：潜在缺陷、安全隐患、代码质量隐患，按严重程度列出来并指出位置。适合提交前自查，或者接手一段改动想先摸清风险。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 看看这次改动有没有 bug
   - 这段 diff 有什么风险

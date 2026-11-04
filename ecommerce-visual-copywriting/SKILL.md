@@ -5,8 +5,8 @@ description: Turn product materials, packaging and qualifications, target platfo
 description_zh: >-
   为商品策划可交给设计师或生图模型执行的电商视觉方案。根据商品信息和目标平台，整理视觉方向与图片规划，撰写主图、详情页或 Listing 的图内文案、设计说明和生图提示词，并标出缺少依据的商品卖点及需要核验的合规事项。适用于商品视觉策划、页面文案和跨境商品内容规划；不直接生成图片。
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 为一款 480ml 随行保温杯策划 5 张淘宝主图，目标用户是通勤和上学人群。卖点是杯身轻便、杯盖可拆洗，有米白和浅绿两种颜色。请提供每张图的构图、图内文案和生图提示词，不要编造未提供的性能或认证信息。
 examples:

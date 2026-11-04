@@ -7,8 +7,8 @@ description: >-
   Outputs to {filename}-formatted.md.
 description_zh: 把纯文本或 Markdown 整理成带 frontmatter、标题与摘要的规范格式
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这篇文章整理成规范格式，加上标题和摘要
   - 帮我给这份 Markdown 补 frontmatter

@@ -5,8 +5,8 @@ description: >-
   reports from Excel/CSV data.
 description_zh: 通用数据分析
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 分析一下这份销售数据
   - 帮我从这组数据里找出趋势

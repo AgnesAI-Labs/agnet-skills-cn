@@ -4,9 +4,9 @@ description: >-
   Automate web browser interactions, scraping, testing, and workflow automation
   with Puppeteer/Playwright
 description_zh: 浏览器自动化操作
-category: automation
-category_name: System & Automation
-category_name_zh: 系统与自动化
+category: professional
+category_name: Professional Domains
+category_name_zh: 专业领域
 examples_zh:
   - 帮我自动填一下这个网页的表单
   - 打开这个网站，把表格数据抓下来

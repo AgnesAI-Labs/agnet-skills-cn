@@ -13,8 +13,8 @@ description_zh: >-
   为 Web、移动端和桌面端界面提供 UI/UX 设计指导，适用于设计、开发、评审或修复页面、组件、设计系统、无障碍、交互、响应式布局、字体、配色、图表及各技术栈实现。
   技能自带 79 种风格、192 套产品配色、74 组字体搭配、119 条 UX 准则、105 个图标、17 个动效预设、25 类图表与 22 个技术栈的可检索数据。
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 帮我优化一下这个网页
   - 给这个后台定一套配色和字体

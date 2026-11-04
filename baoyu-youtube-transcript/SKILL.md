@@ -9,8 +9,8 @@ description: >-
   YouTube URL and wants the transcript/subtitle text or cover image extracted.
 description_zh: 按链接或视频 ID 下载 YouTube 字幕与封面
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 把这个 YouTube 视频的字幕下载下来
   - 提取这个视频的文字稿和封面

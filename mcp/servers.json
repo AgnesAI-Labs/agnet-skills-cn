@@ -8,9 +8,9 @@
     "installation_notes": "Install using npx package manager.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "AGENTQL_API_KEY",
@@ -31,9 +31,9 @@
     "installation_notes": "Install using npx. Requires an Apify API token.",
     "is_builtin": false,
     "endorsed": true,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "APIFY_TOKEN",
@@ -55,8 +55,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [
       {
         "name": "ASANA_ACCESS_TOKEN",
@@ -78,8 +78,8 @@
     "is_builtin": true,
     "endorsed": true,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "environmentVariables": [],
     "description_zh": "通过 MCP-UI 实现自动化数据可视化",
     "installation_notes_zh": "这是 agnes 内置扩展，无需安装。"
@@ -94,8 +94,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [],
     "description_zh": "基于 Git 的问题跟踪器，用于 AI 智能体任务管理",
     "installation_notes_zh": "使用 uvx 包管理器安装。需要先安装 uv。"
@@ -110,8 +110,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "environmentVariables": [],
     "description_zh": "3D 建模与动画集成（需本地服务端设置）",
     "installation_notes_zh": "使用 uvx 包管理器安装。你必须先下载 Blender、安装 Blender MCP 插件并启动 Blender MCP 服务端。"
@@ -125,9 +125,9 @@
     "installation_notes": "Install using npx package manager.",
     "is_builtin": false,
     "endorsed": true,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "BROWSERBASE_API_KEY",
@@ -149,8 +149,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "控制并检查实时 Chrome 浏览器",
     "installation_notes_zh": "使用 npx 包管理器安装。"
@@ -165,8 +165,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [
       {
         "name": "CLOUDINARY_URL",
@@ -188,8 +188,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "show_install_link": false,
     "environmentVariables": [
       {
@@ -211,9 +211,9 @@
     "installation_notes": "This is a built-in extension that comes with agnes. No installation required.",
     "is_builtin": true,
     "endorsed": true,
-    "category": "automation",
-    "category_name": "System & Automation",
-    "category_name_zh": "系统与自动化",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "description_zh": "内置计算机控制，用于网页抓取、文件缓存与自动化",
     "installation_notes_zh": "这是 agnes 内置扩展，无需安装。"
@@ -228,8 +228,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "通过 Container-Use MCP 将容器工作流集成到 agnes",
     "installation_notes_zh": "需要 Node.js 与 Docker。"
@@ -244,8 +244,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "sort": 1,
     "environmentVariables": [],
     "description_zh": "获取最新代码与文档",
@@ -261,8 +261,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [],
     "description_zh": "由 9 个不同人格组成的 LLM 议会辩论，辅助决策",
     "installation_notes_zh": "需要先安装 uv（https://github.com/astral-sh/uv）。通过 uvx 从 GitHub 安装。"
@@ -277,8 +277,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [
       {
         "name": "DATAHUB_GMS_URL",
@@ -306,8 +306,8 @@
     "is_builtin": true,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "执行 JavaScript 代码，高效地与 MCP 工具交互",
     "installation_notes_zh": "这是 agnes 内置平台扩展，无需安装。"
@@ -322,8 +322,8 @@
     "is_builtin": true,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "内置开发者工具，支持文件编辑与 Shell 命令执行",
     "installation_notes_zh": "这是 agnes 内置扩展，默认启用，无需安装。"
@@ -337,9 +337,9 @@
     "installation_notes": "This is a local extension. You must first clone, install, and run the Dev.to MCP server locally before adding this extension.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "type": "streamable-http",
     "description_zh": "访问 Dev.to 文章与内容（需本地服务端设置）",
@@ -355,8 +355,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "environmentVariables": [
       {
         "name": "ELEVENLABS_API_KEY",
@@ -377,9 +377,9 @@
     "installation_notes": "Install using npx package manager. Requires Exa API key.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "EXA_API_KEY",
@@ -400,8 +400,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "environmentVariables": [],
     "type": "streamable-http",
     "description_zh": "用于绘图的 Excalidraw MCP 应用"
@@ -415,9 +415,9 @@
     "installation_notes": "Install using uvx package manager. Note: Some sites may block access via robots.txt.",
     "is_builtin": false,
     "endorsed": true,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "description_zh": "网页内容抓取与处理能力",
     "installation_notes_zh": "使用 uvx 包管理器安装。注意：部分网站可能通过 robots.txt 阻止访问。"
@@ -432,8 +432,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "type": "streamable-http",
     "environmentVariables": [],
     "description_zh": "将 Figma 设计稿转换为代码并提取设计上下文（需本地设置）",
@@ -449,8 +449,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "sort": 1,
     "environmentVariables": [],
     "headers": [
@@ -474,8 +474,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "获取任意 GitHub 项目的最新文档"
   },
@@ -488,8 +488,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "面向 agnes 文档的 GitMCP"
   },
@@ -503,8 +503,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [],
     "description_zh": "为你的工作流添加人工审批",
     "installation_notes_zh": "使用 npx 包管理器安装。"
@@ -519,8 +519,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [],
     "description_zh": "基于图结构的记忆系统，用于持久化知识存储",
     "installation_notes_zh": "使用 npx 包管理器安装。注意：npx 安装模块后，默认记忆图谱位置可能难以查找。"
@@ -536,8 +536,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [
       {
         "name": "LINUX_MCP_USER",
@@ -570,9 +570,9 @@
     "installation_notes": "This is a local extension. You must first download the JAR file from the repository, install Java, and update the placeholder paths before running the 'agnes session' command.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "automation",
-    "category_name": "System & Automation",
-    "category_name_zh": "系统与自动化",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "show_install_link": false,
     "environmentVariables": [
       {
@@ -607,8 +607,8 @@
     "is_builtin": true,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [],
     "description_zh": "内置记忆系统，用于持久化上下文与信息存储",
     "installation_notes_zh": "这是 agnes 内置扩展，无需安装。"
@@ -623,8 +623,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [],
     "description_zh": "MongoDB 数据库集成",
     "installation_notes_zh": "使用 npx 包管理器安装。请按你的 MongoDB 环境调整连接字符串。"
@@ -639,8 +639,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "environmentVariables": [
       {
         "name": "GEMINI_API_KEY",
@@ -663,8 +663,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [],
     "description_zh": "管理 Neon Postgres 数据库、项目与分支",
     "installation_notes_zh": "Streamable HTTP 扩展，通过 OAuth 浏览器认证登录你的 Neon 账号。"
@@ -679,8 +679,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [
       {
         "name": "NETLIFY_ACCESS_TOKEN",
@@ -701,9 +701,9 @@
     "installation_notes": "Install using npx package manager.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "automation",
-    "category_name": "System & Automation",
-    "category_name_zh": "系统与自动化",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "description_zh": "Nostr 协议集成，用于去中心化社交",
     "installation_notes_zh": "使用 npx 包管理器安装。"
@@ -718,8 +718,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [
       {
         "name": "AUTH_HEADER",
@@ -741,9 +741,9 @@
     "installation_notes": "Streamable HTTP extension. No API key or environment variables required.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "automation",
-    "category_name": "System & Automation",
-    "category_name_zh": "系统与自动化",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "description_zh": "面向 AI 智能体的自然语言意图 DEX 聚合器，提供免密钥 MCP 服务端",
     "installation_notes_zh": "Streamable HTTP 扩展。无需 API key 或环境变量。"
@@ -757,9 +757,9 @@
     "installation_notes": "Install using uvx package manager.",
     "is_builtin": false,
     "endorsed": true,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "description_zh": "阅读大型复杂 PDF 文档",
     "installation_notes_zh": "使用 uvx 包管理器安装。"
@@ -774,8 +774,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [],
     "description_zh": "访问你的 Pieces 长期记忆。使用前需要先安装 Pieces。",
     "installation_notes_zh": "请先安装 PiecesOS。"
@@ -790,8 +790,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "sort": 2,
     "environmentVariables": [],
     "description_zh": "使用 Playwright 通过结构化无障碍快照与网页交互",
@@ -806,9 +806,9 @@
     "installation_notes": "Install using npx package manager.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "PROMPTS_API_KEY",
@@ -829,9 +829,9 @@
     "installation_notes": "Install using uvx. Requires uv to be installed.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "REDDIT_CLIENT_ID",
@@ -859,8 +859,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "creative",
-    "category_name": "Design & Media",
-    "category_name_zh": "设计与创意",
+    "category_name": "Design & Creative",
+    "category_name_zh": "设计创意",
     "environmentVariables": [],
     "headers": [
       {
@@ -885,8 +885,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "仓库分析与代码整理",
     "installation_notes_zh": "使用 npx 包管理器安装。"
@@ -901,8 +901,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [],
     "description_zh": "Web 浏览器自动化与测试",
     "installation_notes_zh": "使用 npx 包管理器安装。"
@@ -917,8 +917,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [
       {
         "name": "ACCESS_TOKEN",
@@ -946,8 +946,8 @@
     "is_builtin": true,
     "endorsed": true,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [],
     "description_zh": "加载技能并将任务委派给子智能体",
     "installation_notes_zh": "这是 agnes 内置平台扩展，无需安装。"
@@ -963,8 +963,8 @@
     "is_builtin": false,
     "endorsed": true,
     "category": "data",
-    "category_name": "Data & Documents",
-    "category_name_zh": "文档与数据",
+    "category_name": "Data Analysis",
+    "category_name_zh": "数据分析",
     "environmentVariables": [
       {
         "name": "SUPABASE_PERSONAL_ACCESS_TOKEN",
@@ -986,8 +986,8 @@
     "is_builtin": false,
     "endorsed": false,
     "category": "development",
-    "category_name": "Development",
-    "category_name_zh": "开发与代码",
+    "category_name": "Developer Tools",
+    "category_name_zh": "开发工具",
     "environmentVariables": [
       {
         "name": "SUGAR_PROJECT_ROOT",
@@ -1008,9 +1008,9 @@
     "installation_notes": "Install using npx package manager. Requires Tavily API key.",
     "is_builtin": false,
     "endorsed": true,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "TAVILY_API_KEY",
@@ -1032,8 +1032,8 @@
     "is_builtin": true,
     "endorsed": true,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [
       {
         "name": "AGNES_MOIM_MESSAGE_TEXT",
@@ -1061,8 +1061,8 @@
     "is_builtin": true,
     "endorsed": false,
     "category": "productivity",
-    "category_name": "Work & Collaboration",
-    "category_name_zh": "办公与协作",
+    "category_name": "Office Productivity",
+    "category_name_zh": "办公效率",
     "environmentVariables": [],
     "description_zh": "内置教程与学习管理系统",
     "installation_notes_zh": "这是 agnes 内置扩展，无需安装。"
@@ -1076,9 +1076,9 @@
     "installation_notes": "Install using uvx package manager.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [],
     "description_zh": "YouTube 视频字幕提取",
     "installation_notes_zh": "使用 uvx 包管理器安装。"
@@ -1092,9 +1092,9 @@
     "installation_notes": "No API key required — works anonymously on a free, rate-limited tier. Optionally set SCHOLAR_API_KEY (a free first-party ssk_ key from https://scholar-sidekick.com/account) for higher limits, or RAPIDAPI_KEY for paid tiers via RapidAPI.",
     "is_builtin": false,
     "endorsed": false,
-    "category": "research",
-    "category_name": "Search & Research",
-    "category_name_zh": "搜索与调研",
+    "category": "professional",
+    "category_name": "Professional Domains",
+    "category_name_zh": "专业领域",
     "environmentVariables": [
       {
         "name": "SCHOLAR_API_KEY",

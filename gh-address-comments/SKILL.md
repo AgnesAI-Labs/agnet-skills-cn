@@ -6,8 +6,8 @@ description: >-
   if not logged in.
 description_zh: 处理 Pull Request 上的 review 评论
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 处理一下这个 PR 上的评审意见
   - 把这条 PR 的评论逐条回复并修改

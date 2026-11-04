@@ -10,7 +10,7 @@ description: >-
 description_zh: >-
   开展基于证据的市场调研，服务于市场、客户、竞品、趋势与机会相关决策；用于市场规模、行业或竞品分析、客户需求研究、市场进入或产品机会评估，只选用与研究问题相关的模块。
 category: business
-category_name: Business & Marketing
+category_name: Business Operations
 category_name_zh: 商业运营
 examples_zh:
   - 我想在国内做一款低糖气泡茶，预算不大，帮我市场调研一下

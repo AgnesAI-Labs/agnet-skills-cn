@@ -3,8 +3,8 @@ name: table-extractor
 description: '>'
 description_zh: 从文档里提取表格
 category: data
-category_name: Data & Documents
-category_name_zh: 文档与数据
+category_name: Data Analysis
+category_name_zh: 数据分析
 examples_zh:
   - 从这份文档里把表格提取出来
   - 把 PDF 里的表格转成 Excel

@@ -6,8 +6,8 @@ description: >-
   request animated GIFs for Slack like "make me a GIF of X doing Y for Slack."
 description_zh: 制作 Slack 尺寸的动图
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 做一个适合发 Slack 的动图
   - 帮我做个庆祝用的 GIF

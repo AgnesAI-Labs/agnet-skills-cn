@@ -5,8 +5,8 @@ description: Build and sharpen a project's domain model. Use when discussing cod
 description_zh: >-
   把项目里的叫法固定下来：梳理领域概念、挑战含糊的术语、把边界场景想清楚，需要时写成 GLOSSARY.md 和 ADR。适合讨论代码里的术语、统一团队和 AI 对同一个概念的理解。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我整理一份术语表
   - 这个概念到底该怎么叫

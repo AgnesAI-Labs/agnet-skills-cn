@@ -5,8 +5,8 @@ description: Delivers changes incrementally in thin, verifiable slices. Use when
 description_zh: >-
   一次只做一小块，改完就测、测完再往下走，让每一步都停在能跑的状态。适合涉及多个文件的改动、按计划接着往下做，或者你正准备一口气写上几百行代码的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 按计划一步一步改
   - 这个改动涉及好几个文件，稳一点做

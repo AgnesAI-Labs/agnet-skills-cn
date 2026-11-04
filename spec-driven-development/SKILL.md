@@ -5,8 +5,8 @@ description: Creates specs before coding. Use when starting a new project, featu
 description_zh: >-
   动手写代码前先把需求写成规格！明确目标、范围与验收标准，把模糊的一句话需求拆成可验证的能力模块，避免写到一半才发现方向不对。适合新项目、新功能，或者需求还只是一段描述的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我把这个需求整理成规格
   - 需求太模糊了，先梳理清楚

@@ -11,8 +11,8 @@ description_zh: >-
   这类会丢东西的命令执行前先拦下来。适合担心自动化流程误操作仓库、想加一道确认闸的时候。原技能面向 Claude Code 的 hooks
   机制，其他环境需相应调整。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我拦住危险的 git 命令
   - 加个 git 安全钩子

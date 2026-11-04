@@ -5,8 +5,8 @@ description: >-
   read, create or updates tickets in Linear.
 description_zh: Linear 的问题与项目管理
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 在 Linear 里建一个 issue
   - 看看这个项目还有哪些没完成的任务

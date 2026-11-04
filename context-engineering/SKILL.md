@@ -5,8 +5,8 @@ description: Optimizes agent context setup. Use when starting a new session, whe
 description_zh: >-
   让 AI 在正确的时机拿到正确的信息：整理项目规则文件、安排上下文层级、规划任务切换方式，解决输出质量下滑、不守项目约定、跨模块切换后跑偏的问题。适合开新会话或者配置 AGENTS.md 的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我整理项目的规则文件
   - 它老是不按我们的约定写

@@ -7,8 +7,8 @@ description: >-
   article", or "为文章配图".
 description_zh: 分析文章结构，在合适的位置生成配图
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 给这篇文章配插图，标出该放图的位置
   - 分析这篇长文，在合适的地方生成配图

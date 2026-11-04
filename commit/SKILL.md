@@ -7,8 +7,8 @@ description: >-
 description_zh: >-
   整理这次改动并生成符合约定的提交信息，带上关联的 issue 编号。适合想保持提交历史整齐、或者不知道这次改动该怎么描述的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 把这次改动提交了
   - 帮我写条提交信息

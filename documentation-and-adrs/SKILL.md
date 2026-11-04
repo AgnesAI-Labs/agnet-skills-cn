@@ -5,8 +5,8 @@ description: Records decisions and documentation. Use when you need to document 
 description_zh: >-
   把「为什么这么做」记下来：技术选型、方案取舍、接口变更的来龙去脉，按 ADR 格式留档。适合做了架构决策、改了公共接口，或者上线后需要给后来人留上下文的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 帮我写一份 ADR
   - 把这个技术选型的理由记下来

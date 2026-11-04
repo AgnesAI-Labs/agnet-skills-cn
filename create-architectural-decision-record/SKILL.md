@@ -8,8 +8,8 @@ description_zh: >-
   为一个架构决定写 ADR：背景与约束、备选方案、最终选择和放弃其他方案的理由、后续影响。结构和措辞都便于人和 AI
   之后重新读到，适合做完一个不好回退的技术决策后留痕。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 给这个决定写份 ADR
   - 把这次架构选择记录下来

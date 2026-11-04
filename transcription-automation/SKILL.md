@@ -4,9 +4,9 @@ description: >-
   Automate audio/video transcription, meeting notes, subtitle generation, and
   content processing
 description_zh: 录音转录流程
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 把这段录音转成文字
   - 帮我转录这个会议音频

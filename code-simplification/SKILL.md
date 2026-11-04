@@ -5,8 +5,8 @@ description: Simplifies code for clarity. Use when refactoring code for clarity 
 description_zh: >-
   在不改变行为的前提下把代码变简单：拆长函数、减少嵌套、删掉多余的抽象，让新接手的人更快看懂。适合功能已经跑通但读起来费劲，或者审查时发现过度设计的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 这段代码太绕了，帮我简化
   - 这个函数太长了，拆一下

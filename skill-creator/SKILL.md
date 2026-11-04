@@ -8,8 +8,8 @@ description: >-
   better triggering accuracy.
 description_zh: 编写新 Agent Skill 的规范与方法
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 sort: 2
 examples_zh:
   - 帮我写一个新的技能

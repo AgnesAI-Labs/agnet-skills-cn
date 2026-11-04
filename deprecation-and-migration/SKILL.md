@@ -10,8 +10,8 @@ description: >-
 description_zh: >-
   下掉旧系统、旧接口、旧功能时该走的流程：先标弃用、给出替代方案、分批迁移使用方，最后才删除。生产库改字段也有不停机的扩缩容做法。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 这个旧接口怎么下线
   - 帮我规划从旧实现迁移到新的

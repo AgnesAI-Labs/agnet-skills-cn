@@ -7,8 +7,8 @@ description: >-
   "信息图", "visual summary", "可视化", or "高密度信息大图".
 description_zh: 生成信息图，支持 21 种布局与 22 种视觉风格
 category: creative
-category_name: Design & Media
-category_name_zh: 设计与创意
+category_name: Design & Creative
+category_name_zh: 设计创意
 examples_zh:
   - 把这份数据做成一页信息图
   - 用插画风格展示这个流程

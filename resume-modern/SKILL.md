@@ -3,8 +3,8 @@ name: resume-modern
 description: 'Modern minimal resume, single A4 page, ready for print or PDF export.'
 description_zh: 现代风格的简历排版
 category: productivity
-category_name: Work & Collaboration
-category_name_zh: 办公与协作
+category_name: Office Productivity
+category_name_zh: 办公效率
 examples_zh:
   - 把我的简历排得好看一点
   - 帮我重新排版这份简历

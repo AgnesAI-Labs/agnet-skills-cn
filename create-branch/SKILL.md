@@ -8,8 +8,8 @@ description: >-
 description_zh: >-
   按约定的命名规则从主干拉出新分支，名字带上这次工作内容的描述。适合开始一项新工作、或者发现还停在默认分支上的时候。
 category: development
-category_name: Development
-category_name_zh: 开发与代码
+category_name: Developer Tools
+category_name_zh: 开发工具
 examples_zh:
   - 给这次改动建个分支
   - 从主干拉个新分支

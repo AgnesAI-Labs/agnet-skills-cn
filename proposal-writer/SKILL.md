@@ -2,9 +2,9 @@
 name: proposal-writer
 description: Create compelling business proposals that win deals and partnerships
 description_zh: 撰写方案书与提案
-category: writing
-category_name: Writing & Communication
-category_name_zh: 写作与沟通
+category: content
+category_name: Content Creation
+category_name_zh: 内容创作
 examples_zh:
   - 帮我写一份项目方案书
   - 整理一份给客户的提案
