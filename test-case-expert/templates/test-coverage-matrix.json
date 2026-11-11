@@ -1,0 +1,33 @@
+{
+  "object_name": "example-object",
+  "coverage_basis": "需求/功能点/风险清单",
+  "items": [
+    {
+      "item_id": "REQ-001",
+      "item_type": "requirement",
+      "description": "核心功能要求",
+      "risk": "high",
+      "applicable": true,
+      "case_ids": ["TC-001"],
+      "coverage_status": "covered",
+      "notes": "示例：有对应用例 ID 才标 covered"
+    },
+    {
+      "item_id": "RISK-001",
+      "item_type": "risk",
+      "description": "外部依赖不可用",
+      "risk": "medium",
+      "applicable": true,
+      "case_ids": [],
+      "coverage_status": "not_covered",
+      "notes": "需要补充异常恢复测试"
+    }
+  ],
+  "summary": {
+    "in_scope_items": null,
+    "covered_items": null,
+    "not_covered_items": null,
+    "coverage_rate": null,
+    "calculation_note": "示例数据，不是实际覆盖结果。仅在确定纳入范围与分母后计算：已覆盖条目数 / 纳入范围条目总数；不得以用例数量代替覆盖率。"
+  }
+}

@@ -211,6 +211,18 @@ License: Apache-2.0, Copyright 2026 Anthropic, PBC.
 | skill-installer | OpenAI | Apache-2.0, Copyright 2025 OpenAI |
 | notion-knowledge-capture | Notion Labs | MIT, Copyright 2025 Notion Labs, Inc. |
 | notion-research-documentation | Notion Labs | MIT, Copyright 2025 Notion Labs, Inc. |
+| avoid-ai-writing | Conor Bronsdon | MIT, Copyright (c) 2026 Conor Bronsdon |
+| book-to-capability | Kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 Kiki 77 (debraday885-lab) |
+| expense-review-policy | OpenAI | MIT, Copyright (c) 2025 OpenAI |
+| fridge-dinner | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| goal-plan-review | Agnes | MIT, Copyright (c) 2026 Agnes |
+| groundwork-project-planner | Tekeshwar Singh | MIT, Copyright (c) 2026 Tekeshwar Singh |
+| intent-translator | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| language-tutor | Jannik Reinhard | MIT, Copyright (c) 2026 Jannik Reinhard |
+| lesson-plan-writing | Mohit Aggarwal | MIT, Copyright (c) 2026 Mohit Aggarwal |
+| literature-research-notes | gigio1023 | MIT, Copyright (c) 2026 gigio1023 |
+| personal-health-notes | Agnes | MIT, 版权行只有年份，未写持有人 |
+| test-case-expert | debraday885-lab | MIT, Copyright (c) 2026 debraday885-lab |
 
 ### security-review
 

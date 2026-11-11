@@ -1,0 +1,61 @@
+{
+  "note": "示例数据结构，不是 JSON Schema；需按目标执行器要求调整和校验。",
+  "test_object": {
+    "name": "example-skill",
+    "type": "skill",
+    "version": null,
+    "platform": null,
+    "model": null
+  },
+  "test_strategy": {
+    "scope": ["自然语言触发", "多轮行为"],
+    "levels": ["system", "acceptance"],
+    "dimensions": ["trigger", "multi_turn", "instruction_following"],
+    "methods": ["scenario testing", "rule assertions", "human review"],
+    "assumptions": [],
+    "risks": ["宿主可能未发现 Skill，需记录加载证据"]
+  },
+  "test_cases": [
+    {
+      "case_id": "TC-SK-001",
+      "module": "对话流程",
+      "object_type": "skill",
+      "skill_id": "example-skill",
+      "skill_version": null,
+      "platform": null,
+      "model": null,
+      "category": "multi_turn",
+      "dimension": "上下文保留与指令遵循",
+      "scenario": "用户补充条件后检查 Skill 是否更新后续判断",
+      "priority": "P1",
+      "trigger": {
+        "mode": "natural_language",
+        "expected": "trigger",
+        "expected_skill": "example-skill",
+        "loaded_evidence": null
+      },
+      "preconditions": ["在目标平台准备可观察的测试对话"],
+      "test_data": {},
+      "turns": [
+        {
+          "input": "<根据被测 Skill 的真实任务编写首轮请求>",
+          "expected_behavior": ["按 Skill 的入口规则识别意图", "不把未提供的规则写成事实"]
+        },
+        {
+          "input": "<补充或更正一项前序条件>",
+          "expected_behavior": ["保留其他有效上下文", "后续输出采用新条件", "必要时指出旧结论哪些需要更新"]
+        }
+      ],
+      "steps": ["记录平台、模型和 Skill 版本", "按轮次发送输入", "保存加载/触发及实际输出证据"],
+      "assertions": ["intent_matched", "context_updated", "workflow_followed"],
+      "pass_criteria": ["每轮行为符合被测 Skill 的实际要求", "没有把计划或示例误报为已执行结果"],
+      "fail_criteria": ["忽略用户更正", "未加载却把加载状态猜成成功", "关键约束被违反"],
+      "evaluation_method": "hybrid",
+      "automation": {"suitable": "partial", "notes": "加载状态和字段可用规则检查；语义质量需要 rubric 或人工复核"},
+      "evidence_required": ["运行环境与版本", "完整多轮记录", "可观察的加载/触发证据（若平台提供）"],
+      "source_basis": ["被测 Skill 的具体规则/声明"],
+      "assumptions": [],
+      "execution_result": {"status": "Not Run", "actual_result": null, "evidence": [], "defect_id": null}
+    }
+  ]
+}

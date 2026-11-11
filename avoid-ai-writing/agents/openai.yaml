@@ -1,0 +1,4 @@
+interface:
+  display_name: "Avoid AI Writing"
+  short_description: "Audit and rewrite AI-isms"
+  default_prompt: "Rewrite this English prose to remove clear AI-writing patterns while preserving voice, facts, attribution, and relationships. Return one final rewrite unless the user asks for analysis."
