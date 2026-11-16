@@ -101,6 +101,42 @@
     "installation_notes_zh": "使用 uvx 包管理器安装。需要先安装 uv。"
   },
   {
+    "id": "bilibili-mcp",
+    "name": "Bilibili",
+    "description": "Search Bilibili videos, subtitles, danmaku and comments, and turn video content into usable material",
+    "command": "npx -y bilibili-mcp-server",
+    "link": "https://github.com/Iseenope/bilibili-mcp-server",
+    "installation_notes": "Install using npx. No configuration required; account features can sign in with the Bilibili QR login tools.",
+    "is_builtin": false,
+    "endorsed": false,
+    "category": "content",
+    "category_name": "Content Creation",
+    "category_name_zh": "内容创作",
+    "environmentVariables": [
+      {
+        "name": "BILIBILI_SESSDATA",
+        "description": "Optional, enables account features",
+        "required": false,
+        "description_zh": "可选，启用账号相关功能"
+      },
+      {
+        "name": "BILIBILI_BILI_JCT",
+        "description": "Optional, enables account features",
+        "required": false,
+        "description_zh": "可选，启用账号相关功能"
+      },
+      {
+        "name": "BILIBILI_DEDE_USER_ID",
+        "description": "Optional, enables account features",
+        "required": false,
+        "description_zh": "可选，启用账号相关功能"
+      }
+    ],
+    "description_zh": "搜索 B 站视频、字幕、弹幕与评论，把视频内容变成可用素材",
+    "installation_notes_zh": "使用 npx 安装。无需配置；账号相关功能可用扫码登录工具完成。",
+    "sort": 1
+  },
+  {
     "id": "blender-mcp",
     "name": "Blender",
     "description": "3D modeling and animation integration (requires local server setup)",
@@ -405,6 +441,23 @@
     "environmentVariables": [],
     "type": "streamable-http",
     "description_zh": "用于绘图的 Excalidraw MCP 应用"
+  },
+  {
+    "id": "excel-mcp",
+    "name": "Excel",
+    "description": "Read and write Excel workbooks: text values, formulas and new sheets",
+    "command": "npx -y @negokaz/excel-mcp-server",
+    "link": "https://github.com/negokaz/excel-mcp-server",
+    "installation_notes": "Install using npx. Reads and writes xlsx files directly; live editing is Windows only.",
+    "is_builtin": false,
+    "endorsed": false,
+    "category": "business",
+    "category_name": "Business Operations",
+    "category_name_zh": "商业运营",
+    "environmentVariables": [],
+    "description_zh": "读写 Excel 工作簿：文本、公式与新建工作表",
+    "installation_notes_zh": "使用 npx 安装。直接读写 xlsx 文件；实时编辑仅支持 Windows。",
+    "sort": 2
   },
   {
     "id": "fetch",
@@ -798,6 +851,30 @@
     "installation_notes_zh": "使用 npx 包管理器安装。"
   },
   {
+    "id": "pptx-viewer-mcp",
+    "name": "PowerPoint",
+    "description": "Create and edit PowerPoint decks with 73 editing tools",
+    "command": "npx -y pptx-viewer-mcp",
+    "link": "https://github.com/ChristopherVR/ooxml",
+    "installation_notes": "Install using npx. Tools read and write pptx files under PPTX_TOOLS_ROOT, which defaults to the working directory.",
+    "is_builtin": false,
+    "endorsed": false,
+    "category": "content",
+    "category_name": "Content Creation",
+    "category_name_zh": "内容创作",
+    "environmentVariables": [
+      {
+        "name": "PPTX_TOOLS_ROOT",
+        "description": "Optional, root directory for pptx files",
+        "required": false,
+        "description_zh": "可选，pptx 文件的根目录"
+      }
+    ],
+    "description_zh": "创建与编辑 PowerPoint 演示文稿，内置 73 个编辑工具",
+    "installation_notes_zh": "使用 npx 安装。工具读写的 pptx 文件位于 PPTX_TOOLS_ROOT，默认是工作目录。",
+    "sort": 2
+  },
+  {
     "id": "prompts-chat-mcp",
     "name": "prompts.chat",
     "description": "Access thousands of AI prompts directly in your AI assistant",
@@ -935,6 +1012,23 @@
     ],
     "description_zh": "用于支付与业务管理的 Square API",
     "installation_notes_zh": "使用 npx 包管理器安装。"
+  },
+  {
+    "id": "stock-sdk",
+    "name": "Stock SDK",
+    "description": "Real-time quotes, K-line and fundamentals for A-share, Hong Kong and US markets",
+    "command": "npx -y stock-sdk mcp",
+    "link": "https://github.com/chengzuopeng/stock-sdk",
+    "installation_notes": "Install using npx. No API key or extra configuration required.",
+    "is_builtin": false,
+    "endorsed": false,
+    "category": "business",
+    "category_name": "Business Operations",
+    "category_name_zh": "商业运营",
+    "environmentVariables": [],
+    "description_zh": "A 股、港股、美股的实时行情、K 线与基本面数据",
+    "installation_notes_zh": "使用 npx 安装。无需 API 密钥或额外配置。",
+    "sort": 1
   },
   {
     "id": "summon",
