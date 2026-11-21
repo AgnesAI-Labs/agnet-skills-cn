@@ -1,0 +1,7 @@
+interface:
+  display_name: "API Design for Agnes"
+  short_description: "Context-aware REST API design and review"
+  brand_color: "#F97316"
+  default_prompt: "Use $api-design-agnes to design or review a REST API contract with explicit assumptions."
+policy:
+  allow_implicit_invocation: true

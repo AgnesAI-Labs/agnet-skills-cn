@@ -1,0 +1,29 @@
+{
+  "name": "resume-content-optimization",
+  "version": "1.2.5",
+  "entrypoint": "SKILL.md",
+  "template_count": 3,
+  "workbook_template_count": 5,
+  "contents": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "SKILL.md",
+    "assets/templates/01-简约表格单页版.docx",
+    "assets/templates/02-极简蓝单页版.docx",
+    "assets/templates/03-极简黑单页版.docx",
+    "assets/workbooks/岗位JD研究与需求画像模板.xlsx",
+    "assets/workbooks/岗位匹配分析模板.xlsx",
+    "assets/workbooks/工作及项目经历素材模板.xlsx",
+    "assets/workbooks/招聘专家审核评分模板.xlsx",
+    "assets/workbooks/简历修改对照模板.xlsx",
+    "manifest.json",
+    "references/career-information-extraction.md",
+    "references/experience-achievement-writing.md",
+    "references/fact-audit-and-privacy.md",
+    "references/job-market-research.md",
+    "references/output-and-quality-control.md",
+    "references/recruiter-review-rubric.md",
+    "references/template-selection.md"
+  ]
+}

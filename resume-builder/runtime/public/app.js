@@ -1,0 +1,531 @@
+import { stripLegacyToolbar } from "/editor-toolbar.js";
+import { appendOverrideRule, computedControlValues, configureSelectionTarget, createDraftController, fitResumeInBrowser, restoreSelectedDefaults, rovingSelectionTargets, selectFromPointer, setRovingTabStop, setSelectionPressed, upsertRootToken } from "/editor-controls.js";
+import { editorBlockChildTagNames, editorContainerClassNames, editorContainerTagNames, editorRuntimeInjectedAttributeNames } from "/editor-rules.js";
+
+const frame = document.querySelector("#resume-frame");
+const status = document.querySelector("#save-status");
+const selectionName = document.querySelector("#selection-name");
+const selectedTextEditor = document.querySelector("#selected-text-editor");
+const selectedText = document.querySelector("#selected-text");
+const canvasArea = document.querySelector(".canvas");
+const resumeStage = document.querySelector("#resume-stage");
+const saveButton = document.querySelector("#save-html");
+const controls = Object.fromEntries(["font-size", "font-weight", "font-color", "text-align", "line-height", "margin-bottom", "page-margin", "accent-color"].map((id) => [id, document.querySelector(`#${id}`)]));
+let selected;
+let documentId;
+let sourceName;
+let selectionTargets = [];
+
+function draftKey(id = documentId) { return `resume-editor:draft:${id}`; }
+function overrideStyle(doc) {
+  let style = doc.querySelector("#resume-editor-overrides");
+  if (!style) { style = doc.createElement("style"); style.id = "resume-editor-overrides"; doc.head.append(style); }
+  return style;
+}
+function ensureRules(doc) {
+  const style = overrideStyle(doc);
+  if (!style.textContent.includes("/* resume-editor-overrides */")) style.textContent = "/* resume-editor-overrides */\n";
+  return style;
+}
+function setRule(element, property, value, commit = false) {
+  const doc = frame.contentDocument;
+  const style = ensureRules(doc);
+  style.textContent = appendOverrideRule(style.textContent, element.dataset.resumeEditorId, property, value);
+  if (commit) setStatus("排版已修改，尚未保存", "dirty");
+  saveDraft(commit);
+  updateOverflow();
+}
+function setRootToken(token, value, commit = false) {
+  const doc = frame.contentDocument;
+  const style = ensureRules(doc);
+  style.textContent = upsertRootToken(style.textContent, token, value);
+  if (commit) setStatus("排版已修改，尚未保存", "dirty");
+  saveDraft(commit);
+  updateOverflow();
+}
+function serializedHtml() {
+  return cleanForExport();
+}
+const drafts = createDraftController({
+  getDocumentId: () => documentId,
+  serialize: serializedHtml,
+  persist: (id, html) => { localStorage.setItem(draftKey(id), html); status.textContent = "草稿已保存在此浏览器"; },
+  remove: (id) => localStorage.removeItem(draftKey(id)),
+});
+function saveDraft(commit = false) { if (commit) drafts.commit(); else drafts.schedule(); }
+const statusKinds = new Set(["success", "dirty", "error"]);
+function setStatus(text, kind = "") {
+  status.textContent = text;
+  for (const name of statusKinds) status.classList.toggle(name, name === kind);
+}
+const framePaddingX = 72;
+function fitFrame() {
+  const naturalWidth = frame.offsetWidth;
+  const naturalHeight = frame.offsetHeight;
+  if (!naturalWidth || !naturalHeight) return;
+  const availableWidth = Math.max(0, canvasArea.clientWidth - framePaddingX);
+  const scale = Math.min(1, availableWidth / naturalWidth);
+  resumeStage.style.width = `${Math.round(naturalWidth * scale)}px`;
+  resumeStage.style.height = `${Math.round(naturalHeight * scale)}px`;
+  frame.style.transform = scale < 1 ? `scale(${scale})` : "";
+}
+window.addEventListener("resize", fitFrame);
+fitFrame();
+function setControlValue(id, value) {
+  if (value === "" || value === undefined || value === "normal") return;
+  controls[id].value = value;
+  const slider = document.querySelector(`.sync-slider[data-target="${id}"]`);
+  if (slider) slider.value = value;
+}
+function syncControlsFromSelection(element) {
+  const style = frame.contentWindow.getComputedStyle(element);
+  const rootStyle = frame.contentWindow.getComputedStyle(frame.contentDocument.documentElement);
+  Object.entries(computedControlValues(style, rootStyle)).forEach(([id, value]) => setControlValue(id, value));
+}
+function selectionLabel(element) {
+  return element.textContent.trim().slice(0, 42) || "已选择空文本";
+}
+function select(element) {
+  if (selected) {
+    selected.removeAttribute("data-resume-editor-selected");
+    setSelectionPressed(selected, false);
+  }
+  selected = element;
+  selected.setAttribute("data-resume-editor-selected", "true");
+  setSelectionPressed(selected, true);
+  if (selectionTargets.includes(selected)) setRovingTabStop(selectionTargets, selected);
+  selectionName.textContent = selectionLabel(selected);
+  selectedText.value = selected.textContent;
+  selectedTextEditor.hidden = false;
+  // CSS spring feedback
+  selectionName.classList.remove("animate-pop");
+  void selectionName.offsetWidth;
+  selectionName.classList.add("animate-pop");
+  syncControlsFromSelection(selected);
+}
+function clearSelection() {
+  if (!selected) return;
+  selected.removeAttribute("data-resume-editor-selected");
+  setSelectionPressed(selected, false);
+  selected = undefined;
+  selectionName.textContent = "请选择一段文字";
+  selectedText.value = "";
+  selectedTextEditor.hidden = true;
+}
+selectedText.addEventListener("input", () => {
+  if (!selected) return;
+  selected.textContent = selectedText.value;
+  selectionName.textContent = selectionLabel(selected);
+  setStatus("文字已修改，尚未保存", "dirty");
+  saveDraft();
+  updateOverflow();
+});
+function finishTextEdit(node, save = true) {
+  const originalHtml = node.dataset.resumeEditorOriginalHtml;
+  const changed = originalHtml !== undefined && node.innerHTML !== originalHtml;
+  node.removeAttribute("contenteditable");
+  delete node.dataset.resumeEditorOriginalHtml;
+  if (save && changed) {
+    setStatus("文字已修改，尚未保存", "dirty");
+    saveDraft(true);
+  }
+}
+function supportsPlaintextOnly() {
+  // 测试钩子：浏览器回归测试用它强制走 contenteditable="true" 回退分支
+  if (window.__RESUME_SKILLS_FORCE_PLAINTEXT_FALLBACK === true) return false;
+  const probe = document.createElement("div");
+  probe.setAttribute("contenteditable", "plaintext-only");
+  return probe.isContentEditable === true;
+}
+const plaintextOnlySupported = supportsPlaintextOnly();
+function beginTextEdit(node) {
+  select(node);
+  if (!node.isContentEditable) node.dataset.resumeEditorOriginalHtml = node.innerHTML;
+  node.setAttribute("contenteditable", plaintextOnlySupported ? "plaintext-only" : "true");
+  node.focus({ preventScroll: true });
+  setStatus("正在编辑文字；仅允许纯文本，Ctrl/Cmd+Enter 完成。", "");
+}
+function moveFocus(nodes, current, direction) {
+  const index = nodes.indexOf(current);
+  const next = nodes[(index + direction + nodes.length) % nodes.length];
+  setRovingTabStop(nodes, next);
+  next.focus();
+}
+// 容器/块级/嵌套规则来自 /editor-rules.js（与 lib/editor-document.mjs 同一事实源）；
+// 本文件只做大小写规范化与判定，不在此处另行定义黑名单。
+const editorContainerTags = new Set(editorContainerTagNames);
+const editorContainerClasses = new Set(editorContainerClassNames);
+const editorBlockTags = new Set(editorBlockChildTagNames);
+const editorRuntimeInjectedAttrs = new Set(editorRuntimeInjectedAttributeNames);
+const runtimeAttributeSelector = editorRuntimeInjectedAttributeNames.map((name) => `[${name}]`).join(",");
+function isLocalAssetReference(reference) {
+  if (typeof reference !== "string" || !reference.trim()) return false;
+  const value = reference.trim();
+  if (value.startsWith("#") || value.startsWith("//")) return false;
+  return !/^[a-z][a-z0-9+.-]*:/i.test(value);
+}
+function previewAssetUrl(src) {
+  return `/api/asset?src=${encodeURIComponent(src)}`;
+}
+function prepareHtmlForPreview(html) {
+  const parsed = new DOMParser().parseFromString(stripLegacyToolbar(html), "text/html");
+  parsed.querySelectorAll("img[src]").forEach((image) => {
+    const originalSrc = image.getAttribute("src") || "";
+    if (!isLocalAssetReference(originalSrc)) return;
+    image.setAttribute("data-resume-editor-original-src", originalSrc);
+    image.setAttribute("src", previewAssetUrl(originalSrc));
+  });
+  return `<!DOCTYPE html>\n${parsed.documentElement.outerHTML}`;
+}
+function containerFieldProblem(node) {
+  const tag = node.tagName.toLowerCase();
+  if (editorContainerTags.has(tag)) return `是容器 <${tag}>`;
+  const classes = (node.className || "").split(/\s+/).filter(Boolean);
+  const containerClass = classes.find((name) => editorContainerClasses.has(name));
+  if (containerClass) return `是容器 .${containerClass}`;
+  const children = [...node.children];
+  const blockChild = children.find((child) => editorBlockTags.has(child.tagName.toLowerCase()));
+  if (blockChild) return `内含块级子元素 <${blockChild.tagName.toLowerCase()}>`;
+  if (children.length > 1) return `内含 ${children.length} 个子元素`;
+  const nestedProblem = nestedInlineFieldProblem(node);
+  if (nestedProblem) return nestedProblem;
+  return null;
+}
+// 与 lib 的 nestedInlineFieldProblem 对齐：复合字段（父字段只有 1 个行内子节点）内的
+// 行内叶子子字段（如联系方式行内带 ID 的 <a>）放行；块级嵌套/多子节点父字段拒绝。
+function nestedInlineFieldProblem(node) {
+  const ancestor = node.parentElement && node.parentElement.closest("[data-resume-editor-id]");
+  if (!ancestor) return null;
+  const tag = node.tagName.toLowerCase();
+  if (editorBlockTags.has(tag)) return "是块级嵌套编辑字段（编辑字段不能嵌套在另一个编辑字段内部）";
+  if (ancestor.children.length > 1) return `父字段包含 ${ancestor.children.length} 个子节点，不是单个复合字段`;
+  return null;
+}
+function disableEditing(message) {
+  clearSelection();
+  status.textContent = message;
+  status.classList.add("error");
+  document.querySelector("#save-html").disabled = true;
+  document.querySelector("#print-pdf").disabled = true;
+  selectionName.textContent = "简历不可编辑（编辑协议校验失败）";
+}
+function enableEditing() {
+  // 热重载从“坏文件”恢复为“好文件”时必须清除错误态并恢复按钮。
+  status.classList.remove("error");
+  document.querySelector("#save-html").disabled = false;
+  document.querySelector("#print-pdf").disabled = false;
+}
+function bindImageErrorHints(doc) {
+  // 跨目录/缺失资源在服务端被 403/404 拒绝后，浏览器对 <img> 触发 error 事件（捕获阶段）。
+  // 本地 404 可能在 iframe load 事件之前完成，因此绑定时刻先扫描已失败图片，再挂后续监听。
+  const markFailed = (target) => {
+    if (!target || target.tagName !== "IMG" || target.hasAttribute("data-resume-editor-img-hint")) return;
+    target.setAttribute("data-resume-editor-img-hint", "true");
+    status.textContent = `图片加载失败：${target.getAttribute("data-resume-editor-original-src") || target.getAttribute("src") || ""}。请确认图片路径相对于 HTML 文件成立，且文件仍存在。`;
+  };
+  doc.querySelectorAll("img").forEach((image) => {
+    if (image.complete && image.naturalWidth === 0) markFailed(image);
+  });
+  doc.addEventListener("error", (event) => markFailed(event.target), true);
+}
+function bindCanvas() {
+  const doc = frame.contentDocument;
+  doc.head.insertAdjacentHTML("beforeend", "<style id=\"resume-editor-chrome\">[data-resume-editor-id]{cursor:pointer}[data-resume-editor-id]:focus-visible{outline:2px solid #2563eb;outline-offset:2px}[data-resume-editor-selected]{outline:2px solid #2563eb;outline-offset:2px}@media print{[data-resume-editor-id]{cursor:auto !important}[data-resume-editor-selected],[data-resume-editor-id]:hover,[data-resume-editor-id]:focus,[data-resume-editor-id]:focus-visible{outline:none !important;outline-offset:0 !important}}</style>");
+  bindImageErrorHints(doc);
+  const allNodes = [...doc.querySelectorAll("[data-resume-editor-id]")];
+  if (allNodes.length === 0) {
+    disableEditing("未找到可编辑字段（正文缺少 data-resume-editor-id）。该 HTML 不符合编辑协议；请重新生成，或先运行 `resume-skills validate <file>` 检查。");
+    return false;
+  }
+  const invalidFields = allNodes.map((node) => ({ node, problem: containerFieldProblem(node) })).filter((item) => item.problem);
+  if (invalidFields.length) {
+    const sample = invalidFields.slice(0, 3).map(({ node, problem }) => `<${node.tagName.toLowerCase()}${node.className ? ` class="${node.className}"` : ""}>${problem}`).join("；");
+    disableEditing(`检测到 ${invalidFields.length} 个容器级/非叶子编辑 ID（${sample}）。直接编辑会破坏版面，已禁用编辑；请把 data-resume-editor-id 移到叶子文本字段。`);
+    return false;
+  }
+  enableEditing();
+  const nodes = selectionTargets = rovingSelectionTargets(allNodes);
+  allNodes.forEach((node) => {
+    const index = nodes.indexOf(node);
+    if (index !== -1) configureSelectionTarget(node, index);
+    node.addEventListener("click", (event) => {
+      selectFromPointer(event, node, select);
+      beginTextEdit(node);
+    });
+    node.addEventListener("dblclick", () => beginTextEdit(node));
+    node.addEventListener("blur", () => { if (node.isContentEditable) finishTextEdit(node); });
+    node.addEventListener("input", () => {
+      if (selected !== node) return;
+      selectedText.value = node.textContent;
+      selectionName.textContent = selectionLabel(node);
+      saveDraft();
+    });
+    if (!plaintextOnlySupported) {
+      node.addEventListener("paste", (event) => {
+        if (!node.isContentEditable) return;
+        event.preventDefault();
+        frame.contentDocument.execCommand("insertText", false, event.clipboardData?.getData("text/plain") ?? "");
+      });
+      node.addEventListener("drop", (event) => {
+        if (!node.isContentEditable) return;
+        event.preventDefault();
+        frame.contentDocument.execCommand("insertText", false, event.dataTransfer?.getData("text/plain") ?? "");
+      });
+    }
+    node.addEventListener("keydown", (event) => {
+      if (node.isContentEditable) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          node.innerHTML = node.dataset.resumeEditorOriginalHtml || node.innerHTML;
+          finishTextEdit(node, false);
+        } else if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+          event.preventDefault();
+          finishTextEdit(node);
+        } else if (!plaintextOnlySupported && event.key === "Enter") {
+          // 回退模式（contenteditable="true"）下 Enter 会插入 <br> 破坏结构校验；纯文本编辑不接受换行
+          event.preventDefault();
+        }
+        return;
+      }
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); beginTextEdit(node); }
+      if (event.key === "Escape") { event.preventDefault(); clearSelection(); }
+      if (event.key === "ArrowDown" || event.key === "ArrowRight") { event.preventDefault(); moveFocus(nodes, node, 1); }
+      if (event.key === "ArrowUp" || event.key === "ArrowLeft") { event.preventDefault(); moveFocus(nodes, node, -1); }
+    });
+  });
+  return true;
+}
+function updateOverflow() {
+  const resume = frame.contentDocument?.querySelector(".resume");
+  if (!resume) return;
+  const overflow = resume.scrollHeight > resume.clientHeight + 1;
+  document.querySelector("#overflow-status").textContent = overflow ? "注意：内容已超出一页 A4。HTML 仍可导出；打印 PDF 前请确认。" : "A4：当前未检测到垂直溢出。";
+}
+function stripInjectedExtensionNodes(doc) {
+  // 简历中绝不包含任何 script，主动清理浏览器扩展注入的脚本
+  doc.querySelectorAll("script").forEach((node) => node.remove());
+  // 清理浏览器插件在非编辑区域注入的外部自定义元素、浮层或样式节点
+  doc.querySelectorAll("*").forEach((node) => {
+    if (node.hasAttribute("data-resume-editor-id")) return;
+    const tag = node.tagName.toLowerCase();
+    if (["html", "body"].includes(tag)) return;
+    if (tag === "style") {
+      if (node.id === "resume-editor-overrides" || node.id === "resume-editor-chrome" || node.id === "resume-editor-print-layout" || node.hasAttribute("data-resume-layout-contract")) return;
+      const marker = `${node.id || ""} ${node.className || ""}`;
+      if (/grammarly|immersive[-_ ]?translate|language[-_ ]?tool|deepl|translate|notranslate|gtx|ydd|dict|monica|sider|extension|plugin|overlay|toolbar|darkreader|stylish|stylus/i.test(marker)) {
+        node.remove();
+      }
+      return;
+    }
+    if (["title", "meta", "link"].includes(tag)) {
+      const marker = `${node.id || ""} ${node.className || ""} ${node.getAttribute("name") || ""}`;
+      if (/grammarly|immersive[-_ ]?translate|translate|notranslate|gtx|ydd|dict|monica|sider|extension|plugin|darkreader/i.test(marker)) {
+        node.remove();
+      }
+      return;
+    }
+    const marker = `${tag} ${node.id || ""} ${node.className || ""}`;
+    if (tag.includes("-") || /grammarly|immersive[-_ ]?translate|language[-_ ]?tool|deepl|translate|notranslate|gtx|ydd|dict|monica|sider|extension|plugin|overlay|toolbar|darkreader|crx/i.test(marker)) {
+      if (node.closest("[data-resume-editor-id]")) return;
+      node.remove();
+    }
+  });
+}
+function cleanForExport() {
+  const doc = frame.contentDocument.cloneNode(true);
+  doc.querySelectorAll("img[data-resume-editor-original-src]").forEach((image) => {
+    image.setAttribute("src", image.getAttribute("data-resume-editor-original-src") || "");
+  });
+  doc.querySelectorAll("[data-resume-editor-selected], #resume-editor-chrome, #resume-editor-print-layout").forEach((node) => {
+    if (node.id === "resume-editor-chrome" || node.id === "resume-editor-print-layout") node.remove(); else node.removeAttribute("data-resume-editor-selected");
+  });
+  doc.querySelectorAll(runtimeAttributeSelector).forEach((node) => {
+    for (const name of editorRuntimeInjectedAttrs) node.removeAttribute(name);
+  });
+  stripInjectedExtensionNodes(doc);
+  return `<!DOCTYPE html>\n${doc.documentElement.outerHTML}`;
+}
+function bindControl(control, handler) {
+  control.addEventListener("input", () => handler(false));
+  control.addEventListener("change", () => handler(true));
+  control.addEventListener("blur", () => handler(true));
+}
+Object.entries({ "font-size": (v, commit) => setRule(selected, "font-size", `${v}px`, commit), "font-weight": (v, commit) => v && setRule(selected, "font-weight", v, commit), "font-color": (v, commit) => setRule(selected, "color", v, commit), "text-align": (v, commit) => v && setRule(selected, "text-align", v, commit), "line-height": (v, commit) => setRule(selected, "line-height", v, commit), "margin-bottom": (v, commit) => setRule(selected, "margin-bottom", `${v}px`, commit) }).forEach(([id, action]) => bindControl(controls[id], (commit) => { if (selected) action(controls[id].value, commit); }));
+bindControl(controls["page-margin"], (commit) => setRootToken("--page-margin", `${controls["page-margin"].value}mm`, commit));
+bindControl(controls["accent-color"], (commit) => setRootToken("--color-accent", controls["accent-color"].value, commit));
+
+// Sync ranges with number inputs
+document.querySelectorAll(".sync-slider").forEach(slider => {
+  const targetId = slider.dataset.target;
+  const numInput = controls[targetId] || document.getElementById(targetId);
+  if (numInput) {
+    slider.addEventListener("input", (e) => {
+      numInput.value = e.target.value;
+      numInput.dispatchEvent(new Event("input"));
+    });
+    slider.addEventListener("change", () => numInput.dispatchEvent(new Event("change")));
+    numInput.addEventListener("input", (e) => {
+      slider.value = e.target.value;
+    });
+  }
+});
+saveButton.addEventListener("click", async () => {
+  saveButton.disabled = true;
+  saveButton.textContent = "保存中…";
+  try {
+    const response = await fetch("/api/save", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ documentId, html: cleanForExport() }) });
+    const result = await response.json();
+    if (response.ok) {
+      drafts.clear();
+      documentId = result.documentId;
+      setStatus("已成功保存 " + result.outputName, "success");
+      saveButton.textContent = "已保存";
+    } else {
+      setStatus(`保存失败：${result.error}`, "error");
+      saveButton.textContent = "保存失败";
+    }
+  } catch (error) {
+    setStatus(`保存失败：${error.message}`, "error");
+    saveButton.textContent = "保存失败";
+  } finally {
+    saveButton.disabled = false;
+    setTimeout(() => { saveButton.textContent = "保存修改"; }, 1600);
+  }
+});
+document.querySelector("#reset-selected").addEventListener("click", () => {
+  if (!selected) return;
+  const style = frame.contentDocument.querySelector("#resume-editor-overrides");
+  if (!style) return;
+  style.textContent = restoreSelectedDefaults(style.textContent, selected.dataset.resumeEditorId);
+  setStatus("排版已修改，尚未保存", "dirty");
+  saveDraft(true);
+  syncControlsFromSelection(selected);
+});
+const printButton = document.querySelector("#print-pdf");
+const DEFAULT_PRINT_FONT_TIMEOUT_MS = 5000;
+function resolvePrintFontTimeoutMs() {
+  const override = Number(window.__RESUME_SKILLS_FONT_TIMEOUT_MS);
+  return Number.isFinite(override) && override >= 0 ? override : DEFAULT_PRINT_FONT_TIMEOUT_MS;
+}
+async function waitForPrintFonts(doc, win, timeoutMs) {
+  if (!doc?.fonts?.ready || win?.__resumeFontsTimedOut) return Boolean(win?.__resumeFontsTimedOut);
+  let timerId;
+  let timedOut = false;
+  try {
+    await Promise.race([
+      Promise.resolve(doc.fonts.ready).catch(() => {}),
+      new Promise((resolve) => {
+        timerId = setTimeout(() => {
+          timedOut = true;
+          resolve();
+        }, timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timerId !== undefined) clearTimeout(timerId);
+  }
+  if (win && timedOut) win.__resumeFontsTimedOut = true;
+  return timedOut;
+}
+let printing = false;
+printButton.addEventListener("click", async () => {
+  const win = frame.contentWindow;
+  const doc = frame.contentDocument;
+  if (!win || !doc || printing) return;
+  printing = true;
+  printButton.disabled = true;
+  try {
+    doc.querySelectorAll("[contenteditable]").forEach((node) => finishTextEdit(node, true));
+    clearSelection();
+    if (doc.activeElement && typeof doc.activeElement.blur === "function") {
+      doc.activeElement.blur();
+    }
+    stripInjectedExtensionNodes(doc);
+
+    const fontTimeoutMs = resolvePrintFontTimeoutMs();
+    await waitForPrintFonts(doc, win, fontTimeoutMs);
+    await fitResumeInBrowser({ fontTimeoutMs, useStyleElement: true }, doc, win, window);
+    fitFrame();
+    updateOverflow();
+
+    win.addEventListener("afterprint", () => {
+      doc.getElementById("resume-editor-print-layout")?.remove();
+      updateOverflow();
+    }, { once: true });
+    win.print();
+  } finally {
+    printing = false;
+    printButton.disabled = false;
+  }
+});
+window.addEventListener("beforeunload", (event) => { if (localStorage.getItem(draftKey())) { event.preventDefault(); event.returnValue = ""; } });
+async function reloadDocument({ isHotReload = false } = {}) {
+  const response = await fetch("/api/document");
+  const { html, documentId: id, sourceName: name } = await response.json();
+  const previousDocumentId = documentId;
+  documentId = id;
+  sourceName = name;
+  document.querySelector("#source-name").textContent = sourceName;
+  if (isHotReload) {
+    drafts.clear(previousDocumentId);
+  }
+  frame.srcdoc = prepareHtmlForPreview(localStorage.getItem(draftKey()) || html);
+}
+
+frame.addEventListener("load", () => {
+  const editable = bindCanvas();
+  if (editable) {
+    // bindImageErrorHints 的预扫描可能在 load 回调前就报告了“图片加载失败”；
+    // 只要画布内还有已标记失败的图，就保留该提示，不覆盖成“已加载”。
+    if (!frame.contentDocument?.querySelector("img[data-resume-editor-img-hint]")) {
+      setStatus("已加载");
+    }
+    updateOverflow();
+  }
+  fitFrame();
+});
+await reloadDocument();
+
+function applyVersionInfo(info) {
+  const chip = document.querySelector("#app-version");
+  if (chip) chip.textContent = info.version || "unknown";
+  const hint = document.querySelector("#app-version-hint");
+  if (hint) {
+    if (info.updateAvailable && info.latest) {
+      hint.textContent = `发现新版本 ${info.latest}，请更新 CLI：npm install -g @chasen-liao/resume-skills@latest`;
+      hint.hidden = false;
+    } else {
+      hint.hidden = true;
+    }
+  }
+}
+if (typeof EventSource !== "undefined") {
+  const events = new EventSource("/api/events");
+  events.onmessage = (event) => {
+    if (event.data === "reload") {
+      reloadDocument({ isHotReload: true });
+    }
+  };
+  events.addEventListener("status", (event) => {
+    const update = JSON.parse(event.data);
+    status.textContent = update.message;
+  });
+  // 版本检查结算后服务端会广播，保证"有新版本"提示一定能出现
+  events.addEventListener("version", (event) => {
+    try {
+      applyVersionInfo(JSON.parse(event.data));
+    } catch {
+      // 忽略损坏的版本事件
+    }
+  });
+}
+(async () => {
+  try {
+    const response = await fetch("/api/version");
+    if (!response.ok) throw new Error(`version endpoint ${response.status}`);
+    const info = await response.json();
+    if (info && typeof info === "object") applyVersionInfo(info);
+  } catch {
+    // 版本信息不可用时保持默认占位，不打扰编辑
+  }
+})();

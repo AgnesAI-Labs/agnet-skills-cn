@@ -133,6 +133,7 @@ License: MIT, Copyright (c) 2026 Affaan Mustafa.
 | market-research | 90606c8 |
 | scientific-thinking-scholar-evaluation | not recorded |
 | scientific-thinking-literature-review | not recorded |
+| api-design-agnes | d2ef268 |
 
 ### coreyhaines31/marketingskills
 
@@ -197,17 +198,29 @@ License: Apache-2.0, Copyright 2026 Anthropic, PBC.
 | baoyu-translate | Jim Liu | MIT, Copyright (c) 2026 Jim Liu |
 | baoyu-xhs-images | Jim Liu | MIT, Copyright (c) 2026 Jim Liu |
 | baoyu-youtube-transcript | Jim Liu | MIT, Copyright (c) 2026 Jim Liu |
+| content-performance-review | 产品运营（版权人未署名） | 自定义条款：仅允许作为 Agnes 技能包分发 |
+| content-planning-scheduling | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
 | diagram-design | Cathryn Lavery | MIT, Copyright (c) 2025 Cathryn Lavery |
 | distilly | titanwings | MIT, Copyright (c) 2026 titanwings |
 | ecommerce-visual-copywriting | OpenClaw Community | MIT, Copyright (c) 2026 OpenClaw Community |
 | i-have-adhd | Ayoub Ghriss | MIT, Copyright (c) 2026 Ayoub Ghriss |
+| information-verification-citation | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| jd-tailorer | Chasen Liao | MIT, Copyright (c) 2026 Chasen Liao |
+| multi-platform-content | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| product-selling-points | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
 | prompt-master | Nidhin Joseph Nelson | MIT, Copyright (c) 2026 Nidhin Joseph Nelson |
+| resume-builder | Chasen Liao | MIT, Copyright (c) 2026 Chasen Liao |
+| resume-content-optimization | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| resume-workflow | Chasen Liao | MIT, Copyright (c) 2026 Chasen Liao |
 | rp-why | Dakota Fabro | Apache-2.0, Copyright 2026 Dakota Fabro |
 | data-report | nexu-io/html-anything | Apache-2.0, Copyright nexu-io |
 | resume-modern | nexu-io/html-anything | Apache-2.0, Copyright nexu-io |
 | gh-address-comments | OpenAI | Apache-2.0, Copyright 2025 OpenAI |
 | hatch-pet | OpenAI | Apache-2.0, Copyright 2025 OpenAI |
 | linear | OpenAI | Apache-2.0, Copyright 2025 OpenAI |
+| scheduled-task-config | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| short-video-planning | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| short-video-script-creation | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
 | skill-installer | OpenAI | Apache-2.0, Copyright 2025 OpenAI |
 | notion-knowledge-capture | Notion Labs | MIT, Copyright 2025 Notion Labs, Inc. |
 | notion-research-documentation | Notion Labs | MIT, Copyright 2025 Notion Labs, Inc. |
@@ -223,6 +236,8 @@ License: Apache-2.0, Copyright 2026 Anthropic, PBC.
 | literature-research-notes | gigio1023 | MIT, Copyright (c) 2026 gigio1023 |
 | personal-health-notes | Agnes | MIT, 版权行只有年份，未写持有人 |
 | test-case-expert | debraday885-lab | MIT, Copyright (c) 2026 debraday885-lab |
+| user-feedback-analysis | kiki 77 (debraday885-lab) | MIT, Copyright (c) 2026 kiki 77 (debraday885-lab) |
+| xiaohongshu-note-creator | 版权人未署名 | MIT, 版权行只有年份 |
 
 ### security-review
 

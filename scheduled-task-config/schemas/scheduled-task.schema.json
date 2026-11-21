@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scheduled-task-config/v1/scheduled-task.schema.json",
+  "title": "Scheduled Task Configuration (Portable Intent Model)",
+  "description": "跨平台定时任务意图模型，不是任何平台原生导入格式。允许 draft 保留未确认字段；运行前必须另做语义校验与平台适配。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task", "schedule", "execution", "platform"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "status"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 160},
+        "goal": {"type": "string", "minLength": 1},
+        "status": {"enum": ["draft", "ready_for_manual_setup", "paused"]}
+      }
+    },
+    "schedule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["one_time", "daily", "weekly", "monthly", "interval", "cron", "event"]},
+        "timezone": {"type": "string", "minLength": 1},
+        "at": {"type": "string", "format": "date-time"},
+        "time_local": {"type": "string", "pattern": "^(?:[01][0-9]|2[0-3]):[0-5][0-9]$"},
+        "days_of_week": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"enum": ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]}
+        },
+        "day_of_month": {"type": "integer", "minimum": 1, "maximum": 31},
+        "missing_day_policy": {"enum": ["skip", "last_day"]},
+        "every": {"type": "integer", "minimum": 1},
+        "unit": {"enum": ["minutes", "hours", "days", "weeks"]},
+        "anchor_at": {"type": "string", "format": "date-time"},
+        "expression": {"type": "string", "minLength": 1},
+        "event_source": {"type": "string", "minLength": 1},
+        "event_name": {"type": "string", "minLength": 1},
+        "start_at": {"type": "string", "format": "date-time"},
+        "end_at": {"type": "string", "format": "date-time"},
+        "holiday_calendar_ref": {"type": "string"},
+        "custom_rule": {"type": "string"}
+      }
+    },
+    "execution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["instruction"],
+      "properties": {
+        "instruction": {"type": "string"},
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["label", "access"],
+            "properties": {
+              "label": {"type": "string", "minLength": 1},
+              "locator": {"type": "string"},
+              "access": {"enum": ["confirmed", "needs_authorization", "unknown"]}
+            }
+          }
+        },
+        "tools_required": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "output": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "format": {"type": "string"},
+            "destination": {"type": "string"}
+          }
+        },
+        "working_directory": {"type": ["string", "null"]},
+        "side_effects": {"enum": ["read_only", "external_write", "destructive"]},
+        "approval_required": {"type": "boolean"}
+      }
+    },
+    "retry": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "max_attempts": {"type": "integer", "minimum": 1, "maximum": 20},
+        "backoff_seconds": {"type": "integer", "minimum": 0},
+        "on_failure": {"enum": ["notify", "manual_review", "skip", "pause", "platform_default"]}
+      }
+    },
+    "notifications": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "on_success": {"type": "boolean"},
+        "on_failure": {"type": "boolean"},
+        "channel": {"enum": ["none", "platform_default", "push", "email", "chat", "webhook"]},
+        "recipient_ref": {"type": "string"}
+      }
+    },
+    "controls": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "missed_run": {"enum": ["platform_default", "skip", "run_once"]},
+        "overlap_policy": {"enum": ["platform_default", "skip_new", "queue", "allow"]}
+      }
+    },
+    "platform": {
+      "type": "object", "additionalProperties": false,
+      "required": ["target", "capabilities_verified", "deployment_state"],
+      "properties": {
+        "target": {"type": "string", "minLength": 1},
+        "capabilities_verified": {"type": "boolean"},
+        "unsupported_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "deployment_state": {"const": "not_deployed"},
+        "adapter_notes": {"type": "string"}
+      }
+    },
+    "open_questions": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["field", "value", "confirmed"],
+        "properties": {
+          "field": {"type": "string", "minLength": 1},
+          "value": {},
+          "reason": {"type": "string"},
+          "confirmed": {"type": "boolean"}
+        }
+      }
+    },
+    "extensions": {"type": "object", "description": "供已验证的平台映射扩展使用；不表示该平台原生接受这里的字段。"}
+  }
+}

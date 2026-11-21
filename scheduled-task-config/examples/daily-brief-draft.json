@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "task": {
+    "name": "每日行业新闻摘要",
+    "goal": "每天汇总并筛选新近行业新闻",
+    "status": "draft"
+  },
+  "schedule": {"kind": "daily", "time_local": "08:00"},
+  "execution": {
+    "instruction": "每天整理指定行业的新近新闻，优先核对原始来源，输出带链接的简报；具体行业、可靠来源和时间窗待用户确认。",
+    "sources": [{"label": "行业新闻来源", "access": "unknown"}],
+    "output": {"format": "markdown"},
+    "side_effects": "read_only",
+    "approval_required": false
+  },
+  "retry": {"max_attempts": 1, "on_failure": "notify"},
+  "notifications": {"on_failure": true, "channel": "platform_default"},
+  "controls": {"missed_run": "platform_default", "overlap_policy": "platform_default"},
+  "platform": {"target": "generic", "capabilities_verified": false, "unsupported_fields": [], "deployment_state": "not_deployed"},
+  "open_questions": ["执行时区是什么？", "具体关注哪个行业和哪些信息来源？", "执行时能够访问哪些网络或连接器？"],
+  "assumptions": [{"field": "schedule.time_local", "value": "08:00", "reason": "以用户给出的早上八点为例；真实调用需明确用户原话", "confirmed": false}]
+}

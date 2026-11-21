@@ -170,6 +170,7 @@ Skills may include supporting files such as:
 * Templates
 * Example configs
 * Checklists
+* Office documents (`.docx`, `.xlsx`, `.pptx`) — must be genuine Office packages; CI checks the container structure, and archived binaries are not accepted
 
 These should live inside the skill folder:
 

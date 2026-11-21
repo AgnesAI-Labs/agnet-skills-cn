@@ -1,0 +1,50 @@
+{
+  "name": "@chasen-liao/resume-skills",
+  "version": "0.10.3",
+  "description": "Agent skills and a local canvas editor for generated HTML resumes",
+  "type": "module",
+  "bin": {
+    "resume-skills": "bin/resume-skills.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "public",
+    "CHANGELOG.md",
+    "README.md",
+    "requirements-test.txt",
+    "skills/*/SKILL.md",
+    "skills/*/agents/*.yaml",
+    "skills/*/references/**/*",
+    "skills/resume-builder/scripts/*.mjs",
+    "skills/resume-builder/scripts/*.ps1",
+    "skills/resume-builder/scripts/*.py"
+  ],
+  "scripts": {
+    "test": "npm run test:node && npm run test:python",
+    "test:node": "node --test tests/*.test.mjs",
+    "test:python": "python -m unittest discover -s tests -p \"test_*.py\" && python skills/resume-builder/tests/test_validate_resume.py",
+    "test:integration": "python skills/resume-builder/tests/test_render_integration.py"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chasen-Liao/resume-skills.git"
+  },
+  "homepage": "https://chasen-liao.github.io/resume-skills/",
+  "bugs": {
+    "url": "https://github.com/Chasen-Liao/resume-skills/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "parse5": "^8.0.1"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

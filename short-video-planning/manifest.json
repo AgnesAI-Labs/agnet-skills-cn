@@ -1,0 +1,7 @@
+{
+  "name": "short-video-planning",
+  "display_name": "短视频策划",
+  "version": "1.0.2",
+  "entrypoint": "SKILL.md",
+  "description": "短视频账号定位、内容支柱、栏目/系列框架、创意简报与文字资料诊断。"
+}

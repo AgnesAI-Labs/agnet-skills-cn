@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-resume-editor-template="classic-business" data-resume-editor-version="1" data-resume-layout="full-page" data-resume-demo="true">
+<head>
+  <meta charset="UTF-8">
+  <title>简历 - 经典商务风格</title>
+  <style>
+    /* === 引入 Google 字体（静态字重，确保 PDF 嵌入 Type0 字体） === */
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap');
+
+    /* === 经典商务配置 === */
+    :root {
+      --resume-layout: full-page;
+      --resume-density: 1;
+      --resume-density-min: 0.84;
+      --resume-density-max: 1.2;
+      --resume-fill-target: 0.98;
+      --resume-bottom-margin: 9mm;
+      --page-width: 210mm;
+      --page-height: 297mm;
+      --page-margin: 12mm;
+      --content-width: 186mm;
+
+      /* 字号 */
+      --fs-name: calc(28px * var(--resume-density));
+      --fs-section-title: calc(13.5px * var(--resume-density));
+      --fs-body: calc(10.5px * var(--resume-density));
+      --fs-meta: calc(9.5px * var(--resume-density));
+
+      /* 间距 */
+      --gap-section: calc(6.5mm * var(--resume-density));
+      --gap-item: calc(3.5mm * var(--resume-density));
+      --gap-inline: calc(6mm * var(--resume-density));
+
+      /* 行高 */
+      --lh-heading: calc(1 + 0.2 * var(--resume-density));
+      --lh-body: calc(1 + 0.45 * var(--resume-density));
+      --lh-meta: calc(1 + 0.35 * var(--resume-density));
+
+      /* === 经典黑白配色 === */
+      --color-primary: #000000;
+      --color-on-primary: #FFFFFF;
+      --color-accent: #000000;
+      --color-on-accent: #FFFFFF;
+      --color-bg: #FFFFFF;
+      --color-fg: #000000;
+      --color-card: #FFFFFF;
+      --color-card-fg: #000000;
+      --color-muted: #F3F4F6;
+      --color-muted-fg: #4B5563;
+      --color-border: #000000;
+    }
+
+    /* === 基础样式与重置 === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #E2E8F0;
+      font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--color-fg);
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .resume {
+      width: var(--page-width);
+      height: var(--page-height);
+      background-color: var(--color-bg);
+      position: relative;
+      overflow: visible;
+      padding: var(--page-margin);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* === 顶部 Header === */
+    .resume-header {
+      margin-bottom: var(--gap-section);
+    }
+
+    .header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 8px;
+    }
+
+    .resume-title {
+      font-size: var(--fs-name);
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.8px;
+      line-height: var(--lh-heading);
+    }
+
+    .job-intent {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--color-primary);
+      margin-bottom: 2px;
+    }
+
+    .header-line {
+      height: 4.5px;
+      background-color: var(--color-primary);
+      width: 100%;
+    }
+
+    /* === 章节标题 (色块标签 + 底横线) === */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      border-bottom: 2px solid var(--color-primary);
+      margin-bottom: 3.5mm;
+      padding-bottom: 0;
+      break-inside: avoid;
+    }
+
+    .section-title-tag {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      padding: 4px 14px 4px 12px;
+      font-weight: 700;
+      font-size: var(--fs-section-title);
+      letter-spacing: 0.5px;
+      display: inline-block;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .section-title-en {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--color-primary);
+      padding-bottom: 2px;
+      text-transform: none;
+      font-family: 'Fira Sans', "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    }
+
+    /* === 章节排版 === */
+    .section {
+      break-inside: avoid;
+      margin-bottom: var(--gap-section);
+    }
+
+    .item-block {
+      margin-bottom: var(--gap-item);
+    }
+
+    .item-block:last-child {
+      margin-bottom: 0;
+    }
+
+    /* === 个人信息布局 === */
+    .personal-info-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .info-details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 9px;
+      column-gap: 20px;
+      flex: 1;
+    }
+
+    .info-detail-item {
+      display: flex;
+      align-items: center;
+      font-size: var(--fs-body);
+      color: var(--color-fg);
+    }
+
+    .info-icon {
+      width: 11px;
+      height: 11px;
+      margin-right: 10px;
+      fill: none;
+      stroke: var(--color-muted-fg);
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: var(--color-fg);
+    }
+
+    .info-value {
+      color: var(--color-fg);
+    }
+
+    .photo-wrapper {
+      width: 90px;
+      height: 112px;
+      border: 1px solid var(--color-border);
+      padding: 3px;
+      background-color: #ffffff;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* === 经历排版 === */
+    .experience-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      font-weight: 700;
+      font-size: var(--fs-body);
+      color: var(--color-fg);
+      margin-bottom: 3.5px;
+    }
+
+    .experience-time {
+      width: 140px;
+      text-align: left;
+    }
+
+    .experience-org {
+      flex: 1;
+      text-align: center;
+    }
+
+    .experience-role {
+      width: 140px;
+      text-align: right;
+    }
+
+    .experience-sub-info {
+      font-size: var(--fs-body);
+      color: var(--color-fg);
+      margin-bottom: 3.5px;
+    }
+
+    .experience-label-bold {
+      font-weight: bold;
+    }
+
+    /* 描述列表 */
+    ul.item-details {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    ul.item-details li {
+      padding-left: 14px;
+      text-indent: -11px;
+      margin-bottom: 3px;
+      text-align: left;
+      font-size: var(--fs-body);
+      color: var(--color-fg);
+    }
+
+    ul.item-details li::before {
+      content: "•\00a0\00a0";
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    /* 自我评价段落 */
+    .summary-text {
+      text-align: left;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--color-fg);
+    }
+
+    /* === 打印媒体查询 === */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        padding: 0;
+        width: var(--page-width);
+        min-height: var(--page-height);
+      }
+      .resume {
+        box-shadow: none;
+        padding: var(--page-margin);
+      }
+      [data-resume-demo="true"] [role="note"],
+      .no-print {
+        display: none !important;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+  <style data-resume-layout-contract="full-page">
+    html[data-resume-layout="full-page"] .resume {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: var(--page-height);
+      padding-bottom: var(--resume-bottom-margin);
+    }
+    html[data-resume-layout="full-page"] .resume > :last-child,
+    html[data-resume-layout="full-page"] .resume > .footer-layout > :last-child,
+    html[data-resume-layout="full-page"] .resume > .layout-grid > :last-child {
+      margin-bottom: 0;
+    }
+    html[data-resume-layout="full-page"] .resume > .layout-grid {
+      align-content: stretch;
+    }
+    @media print {
+      html[data-resume-layout="full-page"] .resume {
+        padding-bottom: var(--resume-bottom-margin);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div role="note" class="no-print" style="position:fixed;top:8px;right:8px;z-index:9999;padding:4px 8px;background:#7f1d1d;color:#fff;font:600 11px/1.3 sans-serif">DEMO · 虚构示例内容</div>
+
+  <div class="resume">
+    <!-- 顶部 Header -->
+    <header class="resume-header">
+      <div class="header-main">
+        <h1 class="resume-title" data-resume-editor-id="profile-title">个人简历</h1>
+        <div class="job-intent" data-resume-editor-id="profile-job-intent">求职意向：市场专员</div>
+      </div>
+      <div class="header-line"></div>
+    </header>
+
+    <!-- 个人信息 -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title-tag" data-resume-editor-id="section-profile-title">个人信息</h2>
+        <div class="section-title-en" data-resume-editor-id="section-profile-title-en">Personal information</div>
+      </div>
+      <div class="personal-info-container">
+        <div class="info-details-grid">
+          <div class="info-detail-item">
+            <!-- 姓名图标：人形 -->
+            <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg>
+            <span class="info-label" data-resume-editor-id="profile-name-label">姓名：</span><span class="info-value" data-resume-editor-id="profile-name">张小可</span>
+          </div>
+          <div class="info-detail-item">
+            <!-- 籍贯图标：定位/房子 -->
+            <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"/><path d="M6 9.5V20h12V9.5"/></svg>
+            <span class="info-label" data-resume-editor-id="profile-location-label">籍贯：</span><span class="info-value" data-resume-editor-id="profile-location">广东省深圳市</span>
+          </div>
+          <div class="info-detail-item">
+            <!-- 出生年月图标：日历 -->
+            <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+            <span class="info-label" data-resume-editor-id="profile-birth-label">出生年月：</span><span class="info-value" data-resume-editor-id="profile-birth">2002年3月</span>
+          </div>
+          <div class="info-detail-item">
+            <!-- 毕业院校图标：毕业帽 -->
+            <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/></svg>
+            <span class="info-label" data-resume-editor-id="profile-school-label">毕业院校：</span><span class="info-value" data-resume-editor-id="profile-school">可瓦大学</span>
+          </div>
+          <div class="info-detail-item">
+            <!-- 手机号码图标：听筒 -->
+            <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            <span class="info-label" data-resume-editor-id="profile-phone-label">手机号码：</span><span class="info-value" data-resume-editor-id="profile-phone">13066668888</span>
+          </div>
+          <div class="info-detail-item">
+            <!-- 邮箱图标：信封 -->
+            <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span class="info-label" data-resume-editor-id="profile-email-label">邮箱：</span><span class="info-value" data-resume-editor-id="profile-email">cnsupport@canva.com</span>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="avatar.png" alt="头像" class="profile-photo">
+        </div>
+      </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title-tag" data-resume-editor-id="section-education-title">教育背景</h2>
+        <div class="section-title-en" data-resume-editor-id="section-education-title-en">Educational background</div>
+      </div>
+      <div class="item-block">
+        <div class="experience-row">
+          <div class="experience-time" data-resume-editor-id="education-1-date">2020.09-2024.06</div>
+          <div class="experience-org" data-resume-editor-id="education-1-school">可瓦大学</div>
+          <div class="experience-role" data-resume-editor-id="education-1-degree">市场营销专业</div>
+        </div>
+        <div class="experience-sub-info" data-resume-editor-id="education-1-gpa">
+          <span class="experience-label-bold" data-resume-editor-id="education-1-gpa-label">GPA：</span>3.6 (专业前10%)
+        </div>
+        <div class="experience-sub-info" data-resume-editor-id="education-1-courses">
+          <span class="experience-label-bold" data-resume-editor-id="education-1-courses-label">主修课程：</span>国际商务英语，概率论与数理统计，线性代数，涉外经济法，企业会计学，企业经济统计学，国际运输与保险，管理系统中计算机应用。
+        </div>
+      </div>
+    </section>
+
+    <!-- 实习经历 -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title-tag" data-resume-editor-id="section-internship-title">实习经历</h2>
+        <div class="section-title-en" data-resume-editor-id="section-internship-title-en">Internship experience</div>
+      </div>
+      <div class="item-block">
+        <div class="experience-row">
+          <div class="experience-time" data-resume-editor-id="internship-1-date">2024.02-2024.05</div>
+          <div class="experience-org" data-resume-editor-id="internship-1-company">可瓦科技公司</div>
+          <div class="experience-role" data-resume-editor-id="internship-1-role">市场部实习生</div>
+        </div>
+        <ul class="item-details">
+          <li data-resume-editor-id="internship-1-bullet-1">搜集市场反馈并进行客户关系维护，提高公司的口碑，优化销售不足。</li>
+          <li data-resume-editor-id="internship-1-bullet-2">根据公司产品定位和目标人群开展推广活动，并在线下进行协助宣传，效果显著。</li>
+          <li data-resume-editor-id="internship-1-bullet-3">独立进行竞品分析并撰写发展方案。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 校园经历 -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title-tag" data-resume-editor-id="section-campus-title">校园经历</h2>
+        <div class="section-title-en" data-resume-editor-id="section-campus-title-en">Campus experience</div>
+      </div>
+      
+      <div class="item-block">
+        <div class="experience-row">
+          <div class="experience-time" data-resume-editor-id="campus-1-date">2021.09-2022.06</div>
+          <div class="experience-org" data-resume-editor-id="campus-1-organization">可瓦大学</div>
+          <div class="experience-role" data-resume-editor-id="campus-1-role">校宣传中心主编</div>
+        </div>
+        <ul class="item-details">
+          <li data-resume-editor-id="campus-1-bullet-1">负责部员的培训并组织相关交流会议。</li>
+          <li data-resume-editor-id="campus-1-bullet-2">制定各部门职能规划，统筹协调各部门发展，提高工作效率。</li>
+        </ul>
+      </div>
+
+      <div class="item-block" style="margin-top: var(--gap-item);">
+        <div class="experience-row">
+          <div class="experience-time" data-resume-editor-id="campus-2-date">2020.09-2021.06</div>
+          <div class="experience-org" data-resume-editor-id="campus-2-organization">可瓦大学</div>
+          <div class="experience-role" data-resume-editor-id="campus-2-role">记者部部长</div>
+        </div>
+        <ul class="item-details">
+          <li data-resume-editor-id="campus-2-bullet-1">多次组织并参与对优秀学生个人、优秀教师、优秀集体的采访。</li>
+          <li data-resume-editor-id="campus-2-bullet-2">多次撰稿并刊登于校公众号平台，点击量破万。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 自我评价 -->
+    <section class="section" style="margin-bottom: 0;">
+      <div class="section-header">
+        <h2 class="section-title-tag" data-resume-editor-id="section-summary-title">自我评价</h2>
+        <div class="section-title-en" data-resume-editor-id="section-summary-title-en">Self-evaluation</div>
+      </div>
+      <p class="summary-text" data-resume-editor-id="profile-summary">
+        本人是市场营销专业本科毕业生，有丰富的营销知识体系做基础；对于市场营销方面的前沿和动向有一定的了解，善于分析和获取经验，熟悉网络推广，有独立的见解和经验，个性开朗，容易相处，团队荣誉感强，有明确的职业规划。
+      </p>
+    </section>
+  </div>
+
+</body>
+</html>

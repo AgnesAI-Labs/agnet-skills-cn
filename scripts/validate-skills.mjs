@@ -144,7 +144,19 @@ const BINARY_ASSET_SIGNATURES = new Map([
   ],
 ]);
 
-const BINARY_ASSET_EXTENSIONS = new Set(BINARY_ASSET_SIGNATURES.keys());
+// OOXML 办公文档（docx/xlsx/pptx）本身就是 ZIP 容器，只核对文件头等于放行任意压缩包，
+// 所以额外要求包内存在 [Content_Types].xml 与对应的部件目录，并且不允许夹带拒绝名单里的部件。
+// 模板块、分镜表这类素材只能以办公文档形式交付，因此单独放行这三种格式。
+const OOXML_ASSET_PARTS = new Map([
+  [".docx", "word/"],
+  [".xlsx", "xl/"],
+  [".pptx", "ppt/"],
+]);
+
+const BINARY_ASSET_EXTENSIONS = new Set([
+  ...BINARY_ASSET_SIGNATURES.keys(),
+  ...OOXML_ASSET_PARTS.keys(),
+]);
 
 // Detect "binary pretending to be text" using magic bytes + text-likeness heuristics
 const MAGIC = [
@@ -168,6 +180,64 @@ function matchesBinaryAssetSignature(ext, buf) {
   const signatures = BINARY_ASSET_SIGNATURES.get(ext);
   if (!signatures) return false;
   return signatures.some((sig) => sig.every((b, i) => buf[i] === b));
+}
+
+/**
+ * 读出 ZIP 中央目录里的条目名。只支持单卷、无 ZIP64 的普通包；
+ * 返回 null 表示结构不可读，调用方按失败处理。
+ */
+function listZipEntries(buf) {
+  const EOCD_SIGNATURE = 0x06054b50;
+  const CENTRAL_SIGNATURE = 0x02014b50;
+  // EOCD 固定 22 字节，注释最长 65535 字节
+  const scanStart = Math.max(0, buf.length - 22 - 0xffff);
+  let eocd = -1;
+  for (let i = buf.length - 22; i >= scanStart; i--) {
+    if (buf.readUInt32LE(i) === EOCD_SIGNATURE) {
+      eocd = i;
+      break;
+    }
+  }
+  if (eocd === -1) return null;
+
+  const entryCount = buf.readUInt16LE(eocd + 10);
+  let offset = buf.readUInt32LE(eocd + 16);
+  const names = [];
+
+  for (let i = 0; i < entryCount; i++) {
+    if (offset + 46 > buf.length || buf.readUInt32LE(offset) !== CENTRAL_SIGNATURE) return null;
+    const nameLen = buf.readUInt16LE(offset + 28);
+    const extraLen = buf.readUInt16LE(offset + 30);
+    const commentLen = buf.readUInt16LE(offset + 32);
+    const nameStart = offset + 46;
+    if (nameStart + nameLen > buf.length) return null;
+    names.push(buf.subarray(nameStart, nameStart + nameLen).toString("utf8"));
+    offset = nameStart + nameLen + extraLen + commentLen;
+  }
+
+  return names;
+}
+
+/**
+ * 校验 OOXML 办公文档：必须同时是合法 ZIP、带 [Content_Types].xml 与对应部件目录，
+ * 且不得夹带拒绝名单里的文件。返回问题描述，没问题返回 null。
+ */
+function findOoxmlAssetProblem(ext, absPath) {
+  const names = listZipEntries(fs.readFileSync(absPath));
+  if (!names) return "not a readable ZIP container";
+  if (!names.includes("[Content_Types].xml")) return "missing [Content_Types].xml";
+
+  const requiredPart = OOXML_ASSET_PARTS.get(ext);
+  if (!names.some((name) => name.startsWith(requiredPart))) return `missing "${requiredPart}" part`;
+
+  const offending = names.find((name) => {
+    const innerExt = path.extname(name).toLowerCase();
+    const deniedExt = DENY_EXTENSIONS.has(innerExt) && !OOXML_ASSET_PARTS.has(innerExt);
+    return deniedExt || DENY_FILENAMES.has(path.basename(name));
+  });
+  if (offending) return `contains disallowed part: ${offending}`;
+
+  return null;
 }
 
 function analyzeTextlikeness(buf) {
@@ -524,9 +594,14 @@ function main() {
       // ---- 二进制素材：不采样文本，改为核对文件头 ----
       if (isBinaryAsset) {
         try {
-          const buf = readFileSample(abs, st.size);
-          if (!matchesBinaryAssetSignature(ext, buf)) {
-            fail(`${skillName}: file header does not match "${ext}": ${rel}`);
+          if (OOXML_ASSET_PARTS.has(ext)) {
+            const problem = findOoxmlAssetProblem(ext, abs);
+            if (problem) fail(`${skillName}: invalid "${ext}" document (${problem}): ${rel}`);
+          } else {
+            const buf = readFileSample(abs, st.size);
+            if (!matchesBinaryAssetSignature(ext, buf)) {
+              fail(`${skillName}: file header does not match "${ext}": ${rel}`);
+            }
           }
         } catch (e) {
           fail(

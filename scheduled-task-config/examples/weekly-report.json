@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "task": {
+    "name": "每周工作周报",
+    "goal": "每周整理已授权的工作记录，生成准确可追溯的周报",
+    "status": "ready_for_manual_setup"
+  },
+  "schedule": {
+    "kind": "weekly",
+    "timezone": "Asia/Shanghai",
+    "time_local": "18:00",
+    "days_of_week": ["FR"]
+  },
+  "execution": {
+    "instruction": "每周五执行一次。以本次执行时的 Asia/Shanghai 时间为准，整理本周周一 00:00 至本次执行时刻之间已授权的工作记录。只引用给定工作日志里的事实，按‘本周完成/进行中/阻碍及待协调/下周计划’四部分输出 Markdown 周报。每项尽量附记录日期或出处，不能核实的内容标为‘待确认’。没有可访问的工作记录时只输出缺失来源清单，不编造工作成果。不得擅自发送、发布或修改外部文件。",
+    "sources": [{"label": "工作记录", "locator": "已授权的工作日志来源（由目标 Agent 设置）", "access": "confirmed"}],
+    "tools_required": ["source_read"],
+    "output": {"format": "markdown", "destination": "当前任务的结果页"},
+    "working_directory": null,
+    "side_effects": "read_only",
+    "approval_required": false
+  },
+  "retry": {"max_attempts": 1, "backoff_seconds": 0, "on_failure": "notify"},
+  "notifications": {"on_success": false, "on_failure": true, "channel": "platform_default"},
+  "controls": {"missed_run": "platform_default", "overlap_policy": "skip_new"},
+  "platform": {
+    "target": "generic",
+    "capabilities_verified": false,
+    "unsupported_fields": [],
+    "deployment_state": "not_deployed",
+    "adapter_notes": "此文件是可人工配置的标准任务定义；尚未映射到具体平台。示例中‘已授权’只是前提，实际安装时仍需确认连接器权限。"
+  },
+  "open_questions": [],
+  "assumptions": []
+}
